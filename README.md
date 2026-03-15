@@ -1,5 +1,7 @@
 # WLIQ Claude Skills
 
+[![Visitors](https://visitor-badge.laobi.icu/badge?page_id=huebnermarketing.WLIQ-Skills)](https://github.com/huebnermarketing/WLIQ-Skills)
+
 A shared library of Claude AI skills built by the White Label IQ team. These skills extend Claude's capabilities inside **Claude Desktop (Cowork mode)** with WLIQ-specific workflows — Orbit project management, Notion integrations, n8n automation, and brand-aware document generation.
 
 ---
