@@ -1,0 +1,40 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Secrets / credentials — never commit these
+.env
+*.key
+*.pem
+secrets/
+credentials/
+
+# Claude workspace internals — not part of the skills repo
+.claude/
+uploads/
+
+# Client-specific skills — kept locally, not shared in this repo
+skills/collage-brand/
+
+# Node (if any tooling is added later)
+node_modules/
+npm-debug.log*
+
+# Python (if any tooling is added later)
+__pycache__/
+*.pyc
+.venv/
