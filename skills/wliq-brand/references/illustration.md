@@ -1,93 +1,111 @@
-# WLIQ Illustration & Graphic Style
+# WLIQ Illustration & Line Art Guidelines
 
-## Two Primary Illustration Styles
+## Line Art Stroke Specs (Official — Per Context)
 
-### Style 1 — Hand-Drawn One-Line Drawings
-Used for: Website section graphics, mobile graphics, social posts (light/dark), print inner pages
-
-**Visual character:**
-- Continuous single-line style (as if drawn without lifting the pen)
-- Minimal, elegant, professional
-- Subjects: people working, collaborating, presenting, coding, thinking
-- Occasional abstract shapes (waves, circles, organic curves) used as decorative elements
-
-**Technical specs by context:**
-
-| Context | Stroke | Color |
+### 1. Website
+| Background | Stroke Size | Stroke Color |
 |---|---|---|
-| Website light bg | 2px | #333333 |
-| Website dark bg | 2px | #FFFFFF |
-| Mobile light bg | 1px | #333333 |
-| Mobile dark bg | 1px | #FFFFFF |
-| Social light post | 2px | #333333 |
-| Social dark post | 2px | #777777 |
-| Print light | 0.5pt | CMYK 0 0 0 80 |
-| Print dark | 0.5pt | CMYK 0 0 0 53 |
+| Light | 2px | #333333 |
+| Dark | 2px | #FFFFFF |
 
-**Subject examples from brand guide:**
-- Flying birds (freedom, aspiration)
-- Person holding lightbulb (innovation)
-- Puzzle pieces (collaboration)
-- Group of people with laptops (teamwork)
-- Hands writing / signing (partnership)
-- Woman at laptop with coffee (productivity)
+### 2. Mobile
+| Background | Stroke Size | Stroke Color |
+|---|---|---|
+| Light | 1px | #333333 |
+| Dark | 1px | #FFFFFF |
 
----
+### 3. Socials
+| Background | Stroke Size | Stroke Color |
+|---|---|---|
+| Light | 2px | #333333 |
+| Dark | 2px | #777777 |
 
-### Style 2 — Flat Color Illustrations
-Used for: Blog covers, social LinkedIn article banners, print cover graphics
-
-**Visual character:**
-- Simple flat character illustrations
-- Pastel or muted color palettes
-- Characters are stylized, not photorealistic
-- Backgrounds often use single pastel wash
-- Subjects tell a story related to the content topic
-
-**Color palette:**
-- Backgrounds: soft peach, pale yellow, pale blue, mint green, lavender, warm cream
-- Skin tones: neutral, inclusive range
-- Clothing and props: slightly more saturated to pop against pastel backgrounds
-- Accent: occasionally uses WLIQ orange (#F37022) for flags, arrows, key objects
-
-**Subject examples from brand guide:**
-- Business person climbing bar chart steps to a flag (growth, achievement)
-- Person relaxing at laptop with plant (ease, productivity)
-- Two people at separate desks (distributed work)
-- Person with directional signs (decision-making)
-- Hot air balloon (ambition, vision)
-- Person untangling wires (problem-solving)
+### 4. Print Materials
+| Background | Stroke Size | Stroke Color (CMYK) |
+|---|---|---|
+| Light | 0.5pt | 0 0 0 80 (~#333333) |
+| Dark | 0.5pt | 0 0 0 53 (~#777777) |
 
 ---
 
-## Graphical Line Decoration (Abstract Background Elements)
-Used as subtle decorative elements in section headers and backgrounds.
+## Website — Section Graphics
 
-These are NOT illustrative — they are abstract organic lines:
-- Sine wave curves crossing a partial circle
-- Creates a sense of motion and flow
-- Applied at corners or edges of sections
+Style: **Continuous one-line art** (single unbroken stroke throughout the entire illustration)
 
-Specs follow the same stroke rules as one-line illustrations by context.
-
----
-
-## What to Avoid in Illustrations
-- Photographic imagery (not part of the WLIQ illustration system)
-- Complex, detailed linework (keep it simple, one-line feel)
-- Saturated bright colors in flat illustrations (keep backgrounds pastel)
-- Generic stock-illustration feel — WLIQ's style is distinctly crafted and consistent
+- Subject matter: figurative, contextually relevant — people collaborating, birds in flight, puzzle pieces, handshakes, meetings, work scenes
+- Pure outline only — no fill, no shading, no color
+- Background: transparent (sits on section background color)
+- Black stroke on light sections, white stroke on dark sections
+- Stroke: 2px
 
 ---
 
-## When to Use Which Style
+## Social Media — LinkedIn
 
-| Output | Style |
-|---|---|
-| Website hero / section | One-line drawing |
-| Website blog thumbnail | Flat color illustration |
-| LinkedIn article cover | Flat color illustration (pastel bg) |
-| LinkedIn / Instagram post | One-line drawing (b&w or with single color accent) |
-| Print cover | Flat color illustration |
-| Print inner pages | One-line drawing |
-| Presentation section dividers | One-line drawing or abstract line decoration |
+Two distinct post styles used in rotation:
+
+### Style A — Full-color flat illustration
+- Pastel / muted background colors (soft blue, peach, warm yellow, cream)
+- Flat-style character illustrations with simple color fills
+- Contextual scenes: offices, cityscapes, characters in action
+- Minimal text overlay or none
+
+### Style B — Bold typography + one-line figure art
+- Light (white/off-white) background
+- Large bold Avenir Black headline (e.g. "MEASURE", "STRATEGIES", "MONEY")
+- Smaller descriptor line in Avenir Roman below headline
+- One-line continuous art figures alongside or below text
+- Black on white — no color fills
+
+---
+
+## Social Media — Instagram
+
+- Black background (#000000)
+- White one-line continuous art — figurative, minimal
+- Bold Avenir Black headline, large, white
+- Smaller Avenir Roman descriptor line
+- High contrast, typographically dominant
+
+---
+
+## Print Materials — Cover Page
+
+- **Background: light (#FFFFFF or #F7F6F5)** — covers use light backgrounds per brand guide
+- **Illustration style: colorful flat character illustration** — expressive figures, contextually relevant to document topic
+- Illustration positioned: bottom-right or right-side of page
+- Text block (title, subtitle, category label): left/top area
+- WLIQ logo: bottom-right corner, black version, 0.35 inch minimum height
+- Colors in illustration: muted/natural tones — greens, blues, warm skin tones, orange accents
+- No one-line art on covers — reserved for inner pages
+
+**Note — Internal Document Override:**
+For WLIQ internal documents (SOPs, policies, process docs, plans), the cover uses a **dark (#000000) background** with white text and the white SVG logo. This is a deliberate internal standard, not the default brand guide print spec.
+
+---
+
+## Print Materials — Inner Pages
+
+Style: **One-line art** (same continuous stroke style as website, but lighter)
+
+- Stroke: 0.5pt, #333333 on light backgrounds
+- Integrated into layout alongside text columns
+- Subjects: people using devices, reading, working — contextual to section content
+- Small icon-style one-line illustrations for data/stat sections (stars, lightbulbs, speech bubbles)
+- Background always light — no dark inner pages
+- Watermark usage: scale down illustration, apply at 10–15% opacity as background texture
+
+---
+
+## Illustration Style — Quick Reference
+
+| Output | Style | Stroke | Color | Background |
+|---|---|---|---|---|
+| Website sections | Continuous one-line | 2px | #333333 / #FFFFFF | Transparent |
+| Mobile sections | Continuous one-line | 1px | #333333 / #FFFFFF | Transparent |
+| Social – LinkedIn A | Flat color illustration | — | Full color, pastels | Pastel bg |
+| Social – LinkedIn B | One-line + bold type | 2px | #333333 | White |
+| Social – Instagram | One-line + bold type | 2px | #FFFFFF | #000000 |
+| Print cover (brand default) | Flat color character | — | Full color | White/light |
+| Print cover (internal docs) | One-line or minimal | 1–1.5px | #FFFFFF | #000000 |
+| Print inner pages | One-line / icon art | 0.5pt | #333333 | White/light |

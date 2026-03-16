@@ -64,7 +64,7 @@ outline so they can confirm or adjust before PDF generation begins.
 | Page title | Cover page headline | Use as-is |
 | Page properties (owner, date, status) | Cover subtitle / metadata block | Summarise as key-value pairs |
 | H1 | Section break + H2 treatment | Treat as major section |
-| H2 | Section header with orange rule | Use as-is |
+| H2 | Section header with grey rule | Use as-is |
 | H3 | Subsection heading | Use as-is |
 | Paragraph | Body text | Preserve, light cleanup only (fix double spaces, orphan line breaks) |
 | Bulleted list | Indented bullet paragraphs | Group consecutive bullets under nearest heading |
@@ -192,11 +192,13 @@ Do NOT re-summarise content after delivery.
 - [ ] Content sourced entirely from Notion — nothing invented
 - [ ] All toggles expanded, no hidden content
 - [ ] Sensitive data (names, figures, IDs) preserved exactly
-- [ ] Cover page: title, subtitle, date
+- [ ] Cover page: dark `#000000` bg, white title, subtitle, category label, date, WLIQ SVG logo
 - [ ] TOC present if 3+ sections
-- [ ] Every H2 has orange rule + bold heading
+- [ ] Every H2 has thin `#777777` rule + bold heading (NOT orange)
 - [ ] Tables fully rendered, no truncated rows
 - [ ] Footer on all content pages
+- [ ] Orange (#F37022) used only for hyperlinks — not section rules, not backgrounds
+- [ ] `category_label` passed to `build_pdf()` (e.g. "SOP", "POLICY DOCUMENT", "PROJECT PLAN")
 - [ ] File saved to `/mnt/user-data/outputs/`
 
 ---

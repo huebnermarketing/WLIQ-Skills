@@ -7,67 +7,81 @@
 | Margin | 0.75 IN (top/bottom) / 0.50 IN (sides) |
 | Bleed | 0.125 IN |
 | Logo height | 0.35 IN minimum |
-| Logo placement | Bottom of cover page |
 
-## Colors for Print (CMYK)
-| Usage | CMYK | Approximate HEX |
-|---|---|---|
-| Titles | 0 0 0 100 | #000000 |
-| Copy (main) | 0 0 0 80 | #333333 |
-| Secondary subtitles | 0 0 0 53 | #777777 |
-| Body copy (light) | 0 0 0 33 | #ABABAB |
-| Background (light) | 0 0 0 5 | #F7F6F5 |
+## Cover Page — Two Variants
+
+### Variant A — Internal Documents (SOPs, Policies, Process Docs, Plans)
+Dark background. Applied to all WLIQ internal documentation.
+
+```
+Background:     #000000 (full bleed)
+Illustration:   One-line SVG art, white or #777777 stroke, 1–1.5px, top-right area
+Category label: Avenir Heavy, #ABABAB, UPPERCASE, 14–16pt
+Title:          Avenir Black, #FFFFFF, 48–60pt
+Subtitle:       Avenir Medium, #777777, 18–20pt
+Date/version:   Avenir Roman, #777777, 14pt
+Accent:         Optional #F37022 rule, 1pt, one only
+Logo:           WLIQ SVG white version, bottom-right, 0.35 IN
+```
+
+### Variant B — Client-Facing Documents (Proposals, Reports, White Papers)
+Light background. Per brand guide default.
+
+```
+Background:     #FFFFFF or #F7F6F5
+Illustration:   Colorful flat character illustration, bottom-right, contextually relevant
+                Muted natural tones — greens, blues, warm skin tones, orange accents
+Category label: Avenir Heavy, #777777, UPPERCASE, 14–16pt
+Title:          Avenir Black, #000000, 48–60pt
+Subtitle:       Avenir Medium, #777777, 18–20pt
+Date/version:   Avenir Roman, #ABABAB, 14pt
+Logo:           WLIQ SVG black version, bottom-right, 0.35 IN
+```
+
+## Inner Pages (Both Variants)
+
+Background: always `#FFFFFF` or `#F7F6F5` — never dark
 
 ## Typography for Print
-| Usage | Font |
-|---|---|
-| TITLE (cover) | Avenir Black |
-| SubTitle | Avenir Heavy |
-| Inner Titles | Avenir Heavy |
-| Main Copy | Avenir Medium |
-| Inner Copy | Avenir Roman |
+| Usage | Font | Color |
+|---|---|---|
+| Cover Title (dark cover) | Avenir Black | #FFFFFF |
+| Cover Title (light cover) | Avenir Black | #000000 |
+| Category Label | Avenir Heavy | #ABABAB (dark) / #777777 (light) |
+| Cover Subtitle | Avenir Medium | #777777 |
+| Page Title / H1 | Avenir Black | #000000 |
+| Section Header / H2 | Avenir Heavy | #000000 |
+| Subsection / H3 | Avenir Heavy | #333333 |
+| Body Copy | Avenir Medium | #333333 |
+| Captions / Labels | Avenir Roman | #777777 |
+| Hyperlinks | Avenir Medium | #F37022 |
+
+## Colors for Print (CMYK)
+| Usage | CMYK | HEX |
+|---|---|---|
+| Dark cover background | 0 0 0 100 | #000000 |
+| Titles on dark | 0 0 0 0 | #FFFFFF |
+| Titles on light | 0 0 0 100 | #000000 |
+| Body copy | 0 0 0 80 | #333333 |
+| Secondary text | 0 0 0 53 | #777777 |
+| Captions | 0 0 0 33 | #ABABAB |
+| Light background | 0 0 0 5 | #F7F6F5 |
+| Accent | 4 66 100 0 | #F37022 |
 
 ## Line Art / Illustration Specs for Print
+| Background | Stroke | CMYK | HEX approx |
+|---|---|---|---|
+| Light | 0.5pt | 0 0 0 80 | #333333 |
+| Dark | 0.5pt | 0 0 0 53 | #777777 |
 
-| Background | Stroke Size | Stroke Color (CMYK) |
-|---|---|---|
-| Light background | 0.5pt | 0 0 0 80 |
-| Dark background | 0.5pt | 0 0 0 53 |
+## Inner Page Illustration Style
+- One-line continuous art alongside text columns — figures, devices, icons
+- Small icon-style one-liners for data/stat sections (stars, lightbulbs, speech bubbles)
+- Stroke: 0.5pt, #333333 on light backgrounds
+- Watermark usage: 10–15% opacity max as background texture
+- No colorful filled illustrations on inner pages
 
-## Cover Graphic Style
-- Featured illustration: colorful flat-style character illustration (not one-line)
-- Characters are expressive, contextually relevant to content topic
-- WLIQ logo placed bottom-right at 0.35 inch height
-- Layout: text (title, subtitle, copy) on left/top; illustration on right/bottom
-
-## Inner Page Graphics
-- Three visual styles used for inner pages:
-  1. Full-width branded header with WLIQ mark
-  2. One-line illustration (hand-drawn) paired with text columns
-  3. Icon + stat layout (for data-heavy pages)
-- Inner page line art uses 0.5pt stroke, CMYK 0 0 0 80
-
-## Typography Hierarchy (Cover Page Example)
-```
-[SubTitle — Avenir Heavy, CMYK 0 0 0 53]
-Welcome to
-
-[TITLE — Avenir Black, CMYK 0 0 0 100]
-OUR AGENCY
-PLAYBOOK
-
-[Main Copy — Avenir Medium, CMYK 0 0 0 80]
-[Body paragraph text...]
-
-[Inner Titles — Avenir Heavy]
-Specialists, Ready to Serve!
-
-[Inner Copy — Avenir Roman, CMYK 0 0 0 33]
-[Supporting detail text...]
-```
-
-## Print Material Examples from Brand Guide
-- Agency Playbook / White paper covers
-- Partner proposal documents
-- Case study layouts
-- Report inner pages with IQ brand illustration and data sections
+## Orange Usage
+- Inner pages: hyperlinks only + one accent element per page max
+- Cover (dark variant): one 1pt accent rule — optional
+- Never as background, fill, or repeated decoration

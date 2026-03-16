@@ -1,48 +1,53 @@
 # WLIQ Color System
 
 ## Primary Colors
-| Swatch | HEX | RGB | CMYK | Usage |
-|---|---|---|---|---|
-| Black | #000000 | 0 0 0 | 0 0 0 100 | Headings, subheadings, section backgrounds, logo |
-| White | #FFFFFF | 255 255 255 | 0 0 0 0 | Headings, subheadings, section backgrounds, logo |
-
-## Accent Color
-| Swatch | HEX | RGB | CMYK | Usage |
-|---|---|---|---|---|
-| Orange | **#F37022** | 243 112 34 | 4 66 100 0 | Buttons, hover states, active states, highlights |
+| Swatch | HEX | RGB | Usage |
+|---|---|---|---|
+| Black | #000000 | 33 33 33 | Headings, backgrounds, logo on light bg |
+| White | #FFFFFF | 255 255 255 | Text on dark, logo on dark bg |
 
 ## Secondary Colors
-| Swatch | HEX | RGB | CMYK | Usage |
-|---|---|---|---|---|
-| Near Black | #1D1D20 | 29 29 32 | 1 1 0 87 | Section backgrounds (dark) |
-| Dark Gray | #333333 | 51 51 51 | 0 0 0 80 | Body copy & menu items (light bg) |
-| Mid Gray | #777777 | 119 119 119 | 0 0 0 53 | Secondary subtitles, one-line stroke (dark bg social) |
-| Light Gray | #ABABAB | 171 171 171 | 0 0 0 33 | Body copy & menu items (dark bg) |
-| Border Gray | #EEEEEE | 238 238 238 | — | Border color (row borders) |
-| Off White | #F7F6F5 | 247 246 245 | 0 0 0 5 | Section backgrounds (light) |
+| Swatch | HEX | RGB | Usage |
+|---|---|---|---|
+| Near Black | #1D1D20 | 29 29 32 | Dark section/page backgrounds |
+| Dark Gray | #333333 | 51 51 51 | Body copy on light backgrounds |
+| Mid Gray | #777777 | 119 119 119 | Secondary text, captions, dividers |
+| Light Gray | #ABABAB | 171 171 171 | Body copy on dark backgrounds |
+| Off White | #F7F6F5 | 247 246 245 | Light section backgrounds |
+
+## Accent Color (Use Sparingly)
+| Swatch | HEX | Usage |
+|---|---|---|
+| Orange | #F37022 | Hyperlinks, one CTA button, single accent line — MAXIMUM one use per page/slide |
+
+## Accent Color Rules
+- NEVER use as background color
+- NEVER use on more than one element per page, slide, or section
+- NEVER apply to the logo
+- USE ONLY FOR: hyperlinks, a single accent divider line, or one CTA button
+- Preferred neutral alternatives: white rule (#FFFFFF) or #777777 divider
+
+## Print-Specific CMYK Values
+| Usage | CMYK | HEX equivalent |
+|---|---|---|
+| Titles | 0 0 0 100 | #000000 |
+| Copy (main) | 0 0 0 80 | #333333 |
+| Secondary subtitles | 0 0 0 53 | #777777 |
+| Body copy (dark bg) | 0 0 0 33 | #ABABAB |
+| Background (light) | 0 0 0 5 | #F7F6F5 |
 
 ## Social Media Pastel Palette
-Used to fill highlight elements within one-line illustrations on social posts:
+Used in illustrations for social posts only — not in documents, presentations, or web:
 - Soft peach / blush
 - Pale yellow
 - Soft lavender / lilac
 - Pale sky blue
 - Mint green
 - Cream / warm white
+(Chosen contextually per illustration — no fixed HEX values)
 
-These are soft pastel versions of natural tones — not defined by specific HEX in the brand guide, chosen contextually per illustration.
-
-## Print-Specific CMYK Values
-| Usage | CMYK |
-|---|---|
-| Titles | 0 0 0 100 |
-| Copy | 0 0 0 80 |
-| Secondary Subtitles | 0 0 0 53 |
-| Body Copy | 0 0 0 33 |
-| Background (light) | 0 0 0 5 |
-
-## Color Rules
-- NEVER use opacity or shades of the primary black/white — always use the defined secondary grays instead
-- NEVER apply the orange accent to the logo
-- NEVER use random colors not in this palette on any branded material
-- The orange (#F37022) is reserved for CTAs, interactive elements, and accent highlights only — not for backgrounds or large areas
+## Color Rules (Non-Negotiable)
+- NEVER use opacity or transparency of brand colors — always use the defined gray shades instead
+- NEVER use random colors not in this palette
+- NEVER apply orange to backgrounds or repeated elements
+- The primary brand identity is black and white — orange is secondary/accent only
