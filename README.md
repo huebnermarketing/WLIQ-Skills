@@ -39,12 +39,22 @@ A shared library of Claude AI skills built by the White Label IQ team. These ski
 
 ## Installation
 
-### Prerequisites
-- [Claude Desktop](https://claude.ai/download) installed
-- Cowork mode enabled (or access to Claude Code with skills support)
-- Git installed on your machine
+### ⚡ Easiest Option — Download & Import Directly
 
-### Step 1 — Clone this repo
+No Git required. Visit the skills web portal and download individual skills as ZIP files, then import them directly into Claude:
+
+**👉 [https://wliq-skills.tarangchokshi.workers.dev/](https://wliq-skills.tarangchokshi.workers.dev/)**
+
+1. Browse and download the skill(s) you want
+2. In Claude Desktop (Cowork mode), go to **Settings → Skills**
+3. Click **Import Skill** and select the downloaded ZIP
+4. Restart your Cowork session — done!
+
+This is the recommended option if you don't want to clone the repo or use Git.
+
+---
+
+### Git Option — Clone this repo
 
 ```bash
 git clone https://github.com/huebnermarketing/WLIQ-Skills.git
