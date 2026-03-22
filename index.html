@@ -1,0 +1,2115 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WLIQ Skills — Claude AI Skill Library</title>
+<meta name="description" content="Specialised skill files for Claude Desktop, Claude.ai, and Claude Code. Connect Orbit, Notion, Gmail, Calendar, Fathom, Pipedrive.">
+
+<!-- Theme init before CSS to prevent flash -->
+<script>
+(function(){
+  var t = localStorage.getItem('wliq-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+})();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   CSS CUSTOM PROPERTIES
+   ============================================================ */
+:root {
+  --lf: #ffffff;
+  --bg: #080810;
+  --bg2: #0e0e1a;
+  --bg3: #141420;
+  --bg4: #1a1a28;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #e8e8f0;
+  --text2: #9898b0;
+  --text3: #606078;
+  --accent: #F37022;
+  --accent-dim: rgba(243,112,34,0.12);
+  --accent-mid: rgba(243,112,34,0.25);
+  --glass: rgba(14,14,26,0.75);
+  --shadow: 0 8px 32px rgba(0,0,0,0.4);
+  --shadow-lg: 0 24px 64px rgba(0,0,0,0.5);
+  --card-r: 20px;
+  --btn-r: 10px;
+  --chip-r: 6px;
+  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+[data-theme="light"] {
+  --lf: #000000;
+  --bg: #f5f3ee;
+  --bg2: #ffffff;
+  --bg3: #f0ede8;
+  --bg4: #e8e5e0;
+  --border: rgba(0,0,0,0.07);
+  --border2: rgba(0,0,0,0.12);
+  --text: #111118;
+  --text2: #555566;
+  --text3: #888899;
+  --glass: rgba(245,243,238,0.85);
+  --shadow: 0 8px 32px rgba(0,0,0,0.08);
+  --shadow-lg: 0 24px 64px rgba(0,0,0,0.12);
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  transition: background var(--transition), color var(--transition);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; color: inherit; }
+ul { list-style: none; }
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 3px; }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0 32px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--glass);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+  transition: background var(--transition);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.nav-logo svg { height: 70px; width: auto; }
+
+.nav-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--border2);
+  flex-shrink: 0;
+}
+
+.nav-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text2);
+}
+
+.nav-version {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  border-radius: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.02em;
+  border: 1px solid rgba(243,112,34,0.2);
+}
+
+.nav-count {
+  font-size: 12px;
+  color: var(--text3);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.nav-spacer { flex: 1; }
+
+.nav-github {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text2);
+  padding: 7px 14px;
+  border-radius: var(--btn-r);
+  border: 1px solid var(--border2);
+  transition: all var(--transition);
+}
+.nav-github:hover { color: var(--text); background: var(--bg3); }
+.nav-github svg { width: 15px; height: 15px; }
+
+.theme-toggle {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--border2);
+  background: var(--bg3);
+  color: var(--text2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  flex-shrink: 0;
+}
+.theme-toggle:hover { color: var(--text); background: var(--bg4); }
+.theme-toggle svg { width: 15px; height: 15px; }
+
+.icon-sun { display: none; }
+[data-theme="light"] .icon-moon { display: none; }
+[data-theme="light"] .icon-sun { display: block; }
+
+@media (max-width: 640px) {
+  nav { padding: 0 16px; gap: 10px; }
+  .nav-count { display: none; }
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 32px 80px;
+  overflow: hidden;
+}
+
+.hero-mesh {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 25%, rgba(243,112,34,0.09) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 70% at 85% 75%, rgba(100,115,255,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 50% at 55% 45%, rgba(243,112,34,0.04) 0%, transparent 65%);
+  background-size: 200% 200%;
+  animation: gradientShift 14s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  33% { background-position: 100% 20%; }
+  66% { background-position: 30% 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-mesh { animation: none; }
+  .hero-eyebrow-dot { animation: none; }
+  .hero-pill { animation: none !important; opacity: 1 !important; transform: none !important; }
+  * { transition-duration: 0.01ms !important; }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 880px;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding: 6px 14px;
+  background: var(--accent-dim);
+  border: 1px solid rgba(243,112,34,0.22);
+  border-radius: 20px;
+  margin-bottom: 32px;
+}
+.hero-eyebrow-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2.2s ease infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.75); }
+}
+
+.hero-title {
+  font-size: clamp(38px, 7vw, 80px);
+  font-weight: 800;
+  line-height: 1.07;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+.hero-title em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.hero-sub {
+  font-size: clamp(16px, 2vw, 19px);
+  font-weight: 400;
+  color: var(--text2);
+  line-height: 1.65;
+  max-width: 660px;
+  margin: 0 auto 48px;
+}
+
+.hero-stats {
+  display: inline-flex;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+.hero-stat {
+  padding: 16px 28px;
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+.hero-stat:last-child { border-right: none; }
+.hero-stat-num {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text);
+  display: block;
+  line-height: 1;
+  margin-bottom: 5px;
+}
+.hero-stat-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .hero-stats { flex-wrap: wrap; }
+  .hero-stat { padding: 12px 20px; border-right: 1px solid var(--border) !important; }
+  .hero-stat:nth-child(even) { border-right: none !important; }
+  .hero-stat:nth-child(3), .hero-stat:nth-child(4) { border-top: 1px solid var(--border); }
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 52px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: var(--btn-r);
+  transition: all var(--transition);
+  box-shadow: 0 4px 20px rgba(243,112,34,0.28);
+}
+.btn-primary:hover {
+  background: #e06318;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(243,112,34,0.38);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: transparent;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: var(--btn-r);
+  border: 1px solid var(--border2);
+  transition: all var(--transition);
+}
+.btn-ghost:hover { background: var(--bg2); border-color: var(--border2); transform: translateY(-2px); }
+
+.hero-pills {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.hero-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 14px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--text2);
+  animation: floatIn 0.7s ease both;
+}
+.hero-pill:nth-child(1) { animation-delay: 0.05s; }
+.hero-pill:nth-child(2) { animation-delay: 0.15s; }
+.hero-pill:nth-child(3) { animation-delay: 0.25s; }
+.hero-pill:nth-child(4) { animation-delay: 0.35s; }
+.hero-pill:nth-child(5) { animation-delay: 0.45s; }
+
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   SECTION COMMON
+   ============================================================ */
+.section {
+  padding: 96px 32px;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+  .section { padding: 64px 16px; }
+}
+
+.section-header { margin-bottom: 48px; }
+
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 12px;
+}
+.section-title {
+  font-size: clamp(26px, 4vw, 42px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.section-sub {
+  font-size: 16px;
+  color: var(--text2);
+  max-width: 520px;
+}
+
+/* ============================================================
+   FILTER TABS
+   ============================================================ */
+.filter-tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.filter-tab {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  color: var(--text2);
+  background: transparent;
+  transition: all var(--transition);
+  font-family: 'Inter', sans-serif;
+}
+.filter-tab:hover { border-color: var(--border2); color: var(--text); background: var(--bg2); }
+.filter-tab.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* ============================================================
+   SKILL GRID
+   ============================================================ */
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .skill-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .skill-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   SKILL CARD
+   ============================================================ */
+.skill-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--card-r);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  position: relative;
+}
+.skill-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border2);
+}
+
+.skill-card.start-here {
+  border-color: rgba(243,112,34,0.28);
+  box-shadow: 0 0 0 1px rgba(243,112,34,0.12), var(--shadow);
+}
+.skill-card.start-here:hover {
+  border-color: rgba(243,112,34,0.5);
+  box-shadow: 0 0 0 1px rgba(243,112,34,0.28), var(--shadow-lg);
+}
+
+.card-accent-bar { height: 3px; width: 100%; flex-shrink: 0; }
+
+.card-body {
+  padding: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.cat-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.skill-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  word-break: break-all;
+}
+
+.card-badges {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+.badge-start { background: var(--accent); color: #fff; }
+.badge-cat { background: var(--bg3); color: var(--text2); border: 1px solid var(--border); }
+
+.card-trigger {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 12px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  border-radius: var(--chip-r);
+  border: 1px solid rgba(243,112,34,0.2);
+  line-height: 1.45;
+}
+
+.card-desc {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.6;
+  flex: 0;
+}
+
+.card-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 8px;
+}
+
+.card-bullets { display: flex; flex-direction: column; gap: 6px; }
+.card-bullet {
+  font-size: 13px;
+  color: var(--text2);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.45;
+}
+.card-bullet-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  margin-top: 7px;
+}
+
+.chips-scroll {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+@media (max-width: 480px) {
+  .chips-scroll {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .chips-scroll::-webkit-scrollbar { display: none; }
+}
+
+.example-chip {
+  font-size: 12px;
+  color: var(--text2);
+  padding: 4px 10px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--chip-r);
+  line-height: 1.4;
+  white-space: nowrap;
+  transition: all var(--transition);
+}
+.example-chip:hover { border-color: var(--border2); color: var(--text); }
+
+/* Sub-skills accordion */
+.subskills-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--bg3);
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text2);
+  transition: all var(--transition);
+  border: 1px solid var(--border);
+}
+.subskills-toggle:hover { background: var(--bg4); color: var(--text); }
+.subskills-toggle svg {
+  width: 14px; height: 14px;
+  transition: transform var(--transition);
+  flex-shrink: 0;
+}
+.subskills-toggle.open svg { transform: rotate(180deg); }
+
+.subskills-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+.subskills-content.open { max-height: 300px; }
+
+.subskills-inner {
+  padding-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.subskill-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  background: var(--bg4);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--text3);
+}
+
+/* Card footer */
+.card-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.mcp-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+.mcp-tag {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 8px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text3);
+  font-family: 'JetBrains Mono', monospace;
+}
+.mcp-none {
+  font-size: 11px;
+  color: var(--text3);
+  font-style: italic;
+}
+
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 14px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+  transition: all var(--transition);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.btn-download:hover {
+  background: #e06318;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(243,112,34,0.3);
+}
+.btn-download svg { width: 13px; height: 13px; }
+
+/* ============================================================
+   GRADIENT HELPERS
+   ============================================================ */
+.gradient-core   { background: linear-gradient(135deg, #F37022, #e05010); }
+.gradient-orbit  { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+.gradient-n8n    { background: linear-gradient(135deg, #ea580c, #f97316); }
+.gradient-notion { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+.gradient-dev    { background: linear-gradient(135deg, #10b981, #059669); }
+.gradient-brand  { background: linear-gradient(135deg, #ec4899, #db2777); }
+
+.dot-core   { background: #F37022; }
+.dot-orbit  { background: #6366f1; }
+.dot-n8n    { background: #ea580c; }
+.dot-notion { background: #06b6d4; }
+.dot-dev    { background: #10b981; }
+.dot-brand  { background: #ec4899; }
+
+/* ============================================================
+   INSTALLATION SECTION
+   ============================================================ */
+.install-section {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 96px 0;
+}
+
+.install-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+@media (max-width: 640px) {
+  .install-inner { padding: 0 16px; }
+  .install-section { padding: 64px 0; }
+}
+
+.install-tabs-nav {
+  display: flex;
+  gap: 4px;
+  background: var(--bg3);
+  border-radius: 12px;
+  padding: 4px;
+  width: fit-content;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.install-tab-btn {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 18px;
+  border-radius: 9px;
+  color: var(--text2);
+  background: transparent;
+  transition: all var(--transition);
+  white-space: nowrap;
+  font-family: 'Inter', sans-serif;
+}
+.install-tab-btn:hover { color: var(--text); }
+.install-tab-btn.active {
+  background: var(--bg2);
+  color: var(--text);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.install-tab-content { display: none; }
+.install-tab-content.active {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .install-tab-content.active { grid-template-columns: 1fr; }
+}
+
+.install-steps { display: flex; flex-direction: column; gap: 24px; }
+
+.install-step { display: flex; gap: 16px; align-items: flex-start; }
+.step-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--accent-dim);
+  border: 1px solid rgba(243,112,34,0.25);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: 'JetBrains Mono', monospace;
+}
+.step-body { flex: 1; padding-top: 5px; }
+.step-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.step-desc { font-size: 13px; color: var(--text2); line-height: 1.6; }
+.step-code {
+  margin-top: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  padding: 8px 12px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--accent);
+  display: inline-block;
+  line-height: 1.55;
+  word-break: break-all;
+}
+
+.install-note {
+  font-size: 13px;
+  color: var(--text2);
+  padding: 10px 14px;
+  background: var(--bg3);
+  border-radius: 8px;
+  border-left: 3px solid var(--accent);
+}
+
+/* Terminal */
+.terminal {
+  background: #0a0a12;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: var(--shadow-lg);
+}
+[data-theme="light"] .terminal { background: #16161f; }
+
+.terminal-bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.025);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.term-dot { width: 12px; height: 12px; border-radius: 50%; }
+.term-dot.red    { background: #ff5f57; }
+.term-dot.yellow { background: #febc2e; }
+.term-dot.green  { background: #28c840; }
+
+.terminal-body {
+  padding: 22px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.85;
+}
+.t-prompt  { color: #4ade80; }
+.t-cmd     { color: #e8e8f2; }
+.t-comment { color: #44445a; }
+.t-path    { color: #60a5fa; }
+.t-success { color: #4ade80; }
+.t-accent  { color: #F37022; }
+
+/* ============================================================
+   BENTO USE CASES
+   ============================================================ */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+}
+
+.bento-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--card-r);
+  padding: 32px;
+  transition: transform var(--transition), box-shadow var(--transition);
+  overflow: hidden;
+  position: relative;
+}
+.bento-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+
+.bento-card:nth-child(1) { grid-column: span 7; }
+.bento-card:nth-child(2) { grid-column: span 5; }
+.bento-card:nth-child(3) { grid-column: span 4; }
+.bento-card:nth-child(4) { grid-column: span 4; }
+.bento-card:nth-child(5) { grid-column: span 4; }
+.bento-card:nth-child(6) {
+  grid-column: span 12;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .bento-card { grid-column: span 12 !important; }
+  .bento-card:nth-child(6) { grid-template-columns: 1fr; }
+}
+
+.bento-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 12px;
+}
+.bento-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+.bento-desc { font-size: 14px; color: var(--text2); line-height: 1.65; }
+
+.bento-prompt {
+  margin-top: 20px;
+  padding: 12px 16px;
+  background: var(--bg3);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--text2);
+}
+.bento-prompt strong { color: var(--accent); font-weight: 600; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.divider { height: 1px; background: var(--border); }
+
+footer {
+  padding: 20px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 1240px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.footer-logo svg { height: 70px; width: auto; }
+
+.footer-credit { font-size: 13px; color: var(--text3); }
+.footer-credit strong { color: var(--text2); font-weight: 500; }
+
+.footer-links { display: flex; gap: 20px; }
+.footer-link {
+  font-size: 13px;
+  color: var(--text3);
+  transition: color var(--transition);
+}
+.footer-link:hover { color: var(--text); }
+
+@media (max-width: 640px) {
+  footer { flex-direction: column; align-items: flex-start; padding: 40px 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav>
+  <a href="/" class="nav-logo" aria-label="WLIQ Skills home">
+    <svg viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <style>.lp { fill: var(--lf); transition: fill 0.3s; }</style>
+      <g>
+        <path class="lp" d="M92.64,118.06h14.92l9.85,39.68h.28l12.95-39.68h12.66l12.95,40.81h.28l10.41-40.81h13.79l-18.01,61.91h-12.1l-13.51-42.78h-.28l-13.51,43.06h-12.38l-18.29-62.2Z"/>
+        <path class="lp" d="M188.32,118.06h13.51v23.08h26.45v-23.08h13.51v61.91h-13.51v-26.74h-26.45v26.74h-13.51v-61.91Z"/>
+        <path class="lp" d="M256.43,118.06h13.51v61.91h-13.51v-61.91Z"/>
+        <path class="lp" d="M296.39,130.16h-17.73v-12.1h48.97v12.1h-17.73v49.81h-13.51c0,.28,0-49.81,0-49.81Z"/>
+        <path class="lp" d="M336.91,118.06h42.21v12.66h-28.71v11.54h27.02v12.66h-27.02v12.66h30.11v12.66h-43.62v-62.2h0Z"/>
+        <path class="lp" d="M421.34,118.06h13.79v49.25h25.33v12.66h-38.84l-.28-61.91h0Z"/>
+        <path class="lp" d="M490.01,118.06h11.26l27.02,61.91h-15.48l-5.35-13.23h-24.2l-5.07,13.23h-15.2l27.02-61.91ZM495.36,136.07l-7.6,19.14h15.2l-7.6-19.14Z"/>
+        <path class="lp" d="M536.44,118.06h23.08c10.98,0,22.8,2.25,22.8,15.76,0,7.04-4.22,11.54-10.69,13.51v.28c8.16,1.13,13.51,7.04,13.51,15.2,0,12.95-12.38,17.17-23.36,17.17h-25.33v-61.91h0ZM549.95,142.82h9.85c4.22,0,8.72-1.69,8.72-6.75s-4.78-6.47-9.29-6.47h-9.29v13.23ZM549.95,168.71h12.38c4.22,0,9.01-1.97,9.01-7.32,0-5.91-6.47-6.75-10.98-6.75h-10.41v14.07h0Z"/>
+        <path class="lp" d="M595.26,118.06h42.21v12.66h-28.42v11.54h27.02v12.66h-27.02v12.66h30.11v12.66h-43.62l-.28-62.2h0Z"/>
+        <path class="lp" d="M652.39,118.06h13.79v49.25h25.33v12.66h-38.84l-.28-61.91h0Z"/>
+      </g>
+      <path class="lp" d="M725.84,75v150h110.04v-37.71h36.3v-112.29h-146.34ZM773.69,170.97h-10.41v-49.81h10.41v49.81ZM836.16,170.97h-28.71c-14.63,0-25.61-9.57-25.61-25.61,0-15.2,11.26-25.61,25.33-25.61s25.33,10.69,25.33,25.61c0,7.04-2.81,14.07-9.29,16.89h13.23l-.28,8.72h0ZM807.18,130.16c-7.88,0-14.35,6.75-14.35,15.48s6.47,15.48,14.35,15.48,14.35-6.75,14.35-15.48-6.47-15.48-14.35-15.48Z"/>
+      <g>
+        <path class="lp" d="M883.44,77.53h-3.94v-2.53h10.69v2.53h-3.94v10.69h-2.81v-10.69h0Z"/>
+        <path class="lp" d="M892.17,75h4.5l3.1,8.72h0l3.1-8.72h4.5v13.51h-2.81v-10.41h0l-3.66,10.13h-2.25l-3.1-10.13h0v10.13h-2.81v-13.23h-.56Z"/>
+      </g>
+      <polygon class="lp" points="841.23 221.62 869.93 192.92 841.23 192.92 841.23 221.62"/>
+    </svg>
+  </a>
+  <div class="nav-divider" aria-hidden="true"></div>
+  <span class="nav-label">Skills</span>
+  <span class="nav-version">v2.0</span>
+  <span class="nav-count">11 skills</span>
+  <div class="nav-spacer"></div>
+  <a href="https://github.com/huebnermarketing/WLIQ-Skills" class="nav-github" target="_blank" rel="noopener" aria-label="View on GitHub">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+    GitHub
+  </a>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+  </button>
+</nav>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="hero">
+  <div class="hero-mesh" aria-hidden="true"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot" aria-hidden="true"></span>
+      Claude AI Skill Library
+    </div>
+    <h1 class="hero-title">
+      Skills that make Claude<br>work the <em>WLIQ way.</em>
+    </h1>
+    <p class="hero-sub">
+      Specialised skill files for Claude Desktop, Claude.ai, and Claude Code. Connect Orbit, Notion, Gmail, Calendar, Fathom, Pipedrive&nbsp;— drop in a .skill file and it just works.
+    </p>
+    <div class="hero-stats" role="list">
+      <div class="hero-stat" role="listitem">
+        <span class="hero-stat-num">11</span>
+        <span class="hero-stat-label">Skills</span>
+      </div>
+      <div class="hero-stat" role="listitem">
+        <span class="hero-stat-num">5</span>
+        <span class="hero-stat-label">Categories</span>
+      </div>
+      <div class="hero-stat" role="listitem">
+        <span class="hero-stat-num">6</span>
+        <span class="hero-stat-label">MCP Integrations</span>
+      </div>
+      <div class="hero-stat" role="listitem">
+        <span class="hero-stat-num">2</span>
+        <span class="hero-stat-label">Master Skills</span>
+      </div>
+    </div>
+    <div class="hero-ctas">
+      <a href="#skills" class="btn-primary">
+        Explore Skills
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#install" class="btn-ghost">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+        Installation Guide
+      </a>
+    </div>
+    <div class="hero-pills" aria-label="Available skills">
+      <span class="hero-pill">Orbit</span>
+      <span class="hero-pill">Daily Briefing</span>
+      <span class="hero-pill">n8n Workflows</span>
+      <span class="hero-pill">Laravel</span>
+      <span class="hero-pill">Brand</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SKILL LIBRARY
+     ============================================================ -->
+<section class="section" id="skills">
+  <div class="section-header">
+    <span class="section-label">Skill Library</span>
+    <h2 class="section-title">Everything you need, ready to drop in.</h2>
+    <p class="section-sub">Browse all 11 skills. Filter by category to find what you need.</p>
+  </div>
+
+  <div class="filter-tabs" role="tablist" aria-label="Filter skills by category">
+    <button class="filter-tab active" role="tab" data-filter="all" aria-selected="true">All Skills</button>
+    <button class="filter-tab" role="tab" data-filter="core" aria-selected="false">Core</button>
+    <button class="filter-tab" role="tab" data-filter="orbit" aria-selected="false">Orbit</button>
+    <button class="filter-tab" role="tab" data-filter="notion" aria-selected="false">Notion &amp; Docs</button>
+    <button class="filter-tab" role="tab" data-filter="n8n" aria-selected="false">n8n</button>
+    <button class="filter-tab" role="tab" data-filter="dev" aria-selected="false">Dev</button>
+    <button class="filter-tab" role="tab" data-filter="brand" aria-selected="false">Brand</button>
+  </div>
+
+  <div class="skill-grid" id="skillGrid">
+
+    <!-- ── 1. wliq-master ── -->
+    <article class="skill-card start-here" data-c="core">
+      <div class="card-accent-bar gradient-core"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-meta">
+            <span class="cat-dot dot-core" aria-hidden="true"></span>
+            <span class="skill-name">wliq-master</span>
+          </div>
+          <div class="card-badges">
+            <span class="badge badge-start">START HERE</span>
+            <span class="badge badge-cat">Core</span>
+          </div>
+        </div>
+        <div class="card-trigger">any WLIQ query &rarr; auto-routes</div>
+        <p class="card-desc">The foundation skill every WLIQ Claude session needs. Handles identity resolution and routes queries to the right tool automatically.</p>
+        <div>
+          <p class="card-section-label">What you get</p>
+          <ul class="card-bullets">
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Identity-aware sessions — Claude knows who you are</li>
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Auto-routes to 6 specialised sub-skills</li>
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Org directory: people, matrices, roles</li>
+          </ul>
+        </div>
+        <div>
+          <p class="card-section-label">Example asks</p>
+          <div class="chips-scroll">
+            <span class="example-chip">"What's Tarang working on?"</span>
+            <span class="example-chip">"Show me open tasks for the SaaS Matrix"</span>
+            <span class="example-chip">"Who's the AM for Collage?"</span>
+          </div>
+        </div>
+        <div>
+          <button class="subskills-toggle" aria-expanded="false" aria-controls="sub-master">
+            <span>6 sub-skills included</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="subskills-content" id="sub-master" aria-hidden="true">
+            <div class="subskills-inner">
+              <span class="subskill-tag">wliq-orbit</span>
+              <span class="subskill-tag">wliq-gmail</span>
+              <span class="subskill-tag">wliq-calendar</span>
+              <span class="subskill-tag">wliq-notion</span>
+              <span class="subskill-tag">wliq-fathom</span>
+              <span class="subskill-tag">wliq-pipedrive</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="mcp-tags">
+          <span class="mcp-tag">Orbit</span>
+          <span class="mcp-tag">Gmail</span>
+          <span class="mcp-tag">Calendar</span>
+          <span class="mcp-tag">Notion</span>
+          <span class="mcp-tag">Fathom</span>
+          <span class="mcp-tag">Pipedrive</span>
+        </div>
+        <a href="https://github.com/huebnermarketing/WLIQ-Skills/raw/main/skills/wliq-master/wliq-master.skill" class="btn-download" download aria-label="Download wliq-master skill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
+        </a>
+      </div>
+    </article>
+
+    <!-- ── 2. orbit-skills ── -->
+    <article class="skill-card" data-c="orbit">
+      <div class="card-accent-bar gradient-orbit"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-meta">
+            <span class="cat-dot dot-orbit" aria-hidden="true"></span>
+            <span class="skill-name">orbit-skills</span>
+          </div>
+          <div class="card-badges">
+            <span class="badge badge-cat">Orbit</span>
+          </div>
+        </div>
+        <div class="card-trigger">pulse on [project] / catch me up on [client]</div>
+        <p class="card-desc">All Orbit workflows in one skill. Routes to the right sub-skill — client 360&deg;, project health, workload, weekly reports, billing analysis.</p>
+        <div>
+          <p class="card-section-label">What you get</p>
+          <ul class="card-bullets">
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Interactive HTML dashboards for projects &amp; clients</li>
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Role-based access (AMs see their data, Directors see all)</li>
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Billing readiness &amp; write-down analysis</li>
+          </ul>
+        </div>
+        <div>
+          <p class="card-section-label">Example asks</p>
+          <div class="chips-scroll">
+            <span class="example-chip">"Pulse on WLIQ Website"</span>
+            <span class="example-chip">"Catch me up on Collage"</span>
+            <span class="example-chip">"Weekly report for AI Matrix"</span>
+            <span class="example-chip">"Show adhoc report for May"</span>
+          </div>
+        </div>
+        <div>
+          <button class="subskills-toggle" aria-expanded="false" aria-controls="sub-orbit">
+            <span>5 sub-skills included</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="subskills-content" id="sub-orbit" aria-hidden="true">
+            <div class="subskills-inner">
+              <span class="subskill-tag">client-360</span>
+              <span class="subskill-tag">project-pulse</span>
+              <span class="subskill-tag">team-workload</span>
+              <span class="subskill-tag">weekly-report</span>
+              <span class="subskill-tag">adhoc-report</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="mcp-tags">
+          <span class="mcp-tag">Orbit</span>
+          <span class="mcp-tag">Notion</span>
+        </div>
+        <a href="https://github.com/huebnermarketing/WLIQ-Skills/raw/main/skills/orbit-skills/orbit-skills.skill" class="btn-download" download aria-label="Download orbit-skills skill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
+        </a>
+      </div>
+    </article>
+
+    <!-- ── 3. wliq-daily-briefing ── -->
+    <article class="skill-card" data-c="core">
+      <div class="card-accent-bar gradient-core"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-meta">
+            <span class="cat-dot dot-core" aria-hidden="true"></span>
+            <span class="skill-name">wliq-daily-briefing</span>
+          </div>
+          <div class="card-badges">
+            <span class="badge badge-cat">Core</span>
+          </div>
+        </div>
+        <div class="card-trigger">today's agenda / morning briefing / what's my day</div>
+        <p class="card-desc">PA-grade daily briefing that pulls tasks, emails, and meetings into one prioritised summary. No fluff — just action.</p>
+        <div>
+          <p class="card-section-label">What you get</p>
+          <ul class="card-bullets">
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Tasks due today from Orbit</li>
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Emails requiring action across all inboxes</li>
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Today's meetings with context</li>
+          </ul>
+        </div>
+        <div>
+          <p class="card-section-label">Example asks</p>
+          <div class="chips-scroll">
+            <span class="example-chip">"Morning briefing"</span>
+            <span class="example-chip">"What's my day?"</span>
+            <span class="example-chip">"Today's agenda"</span>
+            <span class="example-chip">"Show me what needs action today"</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="mcp-tags">
+          <span class="mcp-tag">Orbit</span>
+          <span class="mcp-tag">Gmail</span>
+          <span class="mcp-tag">Calendar</span>
+        </div>
+        <a href="https://github.com/huebnermarketing/WLIQ-Skills/raw/main/skills/wliq-daily-briefing/wliq-daily-briefing.skill" class="btn-download" download aria-label="Download wliq-daily-briefing skill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
+        </a>
+      </div>
+    </article>
+
+    <!-- ── 4. skills-discovery ── -->
+    <article class="skill-card" data-c="core">
+      <div class="card-accent-bar gradient-core"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-meta">
+            <span class="cat-dot dot-core" aria-hidden="true"></span>
+            <span class="skill-name">skills-discovery</span>
+          </div>
+          <div class="card-badges">
+            <span class="badge badge-cat">Core</span>
+          </div>
+        </div>
+        <div class="card-trigger">find a skill for [task]</div>
+        <p class="card-desc">Proactively searches the claude-plugins.dev registry before Claude guesses. Ensures the right skill is always used for domain-specific tasks.</p>
+        <div>
+          <p class="card-section-label">What you get</p>
+          <ul class="card-bullets">
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Auto-triggers on complex tasks before Claude improvises</li>
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Searches live skills registry</li>
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Installs skills directly from chat</li>
+          </ul>
+        </div>
+        <div>
+          <p class="card-section-label">Example asks</p>
+          <div class="chips-scroll">
+            <span class="example-chip">"Find a skill for PDF processing"</span>
+            <span class="example-chip">"Is there a skill for Shopify?"</span>
+            <span class="example-chip">"What skills do I have installed?"</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="mcp-tags">
+          <span class="mcp-none">No MCPs required</span>
+        </div>
+        <a href="https://github.com/huebnermarketing/WLIQ-Skills/raw/main/skills/skills-discovery/skills-discovery.skill" class="btn-download" download aria-label="Download skills-discovery skill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
+        </a>
+      </div>
+    </article>
+
+    <!-- ── 5. notion-to-pdf ── -->
+    <article class="skill-card" data-c="notion">
+      <div class="card-accent-bar gradient-notion"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-meta">
+            <span class="cat-dot dot-notion" aria-hidden="true"></span>
+            <span class="skill-name">notion-to-pdf</span>
+          </div>
+          <div class="card-badges">
+            <span class="badge badge-cat">Notion &amp; Docs</span>
+          </div>
+        </div>
+        <div class="card-trigger">make a PDF of this Notion page: [url]</div>
+        <p class="card-desc">Convert any Notion page to a polished WLIQ-branded PDF. Always fetches live — never uses pasted content alone.</p>
+        <div>
+          <p class="card-section-label">What you get</p>
+          <ul class="card-bullets">
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>WLIQ-branded PDF output</li>
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>SOPs, plans, policies, proposals</li>
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Intelligent block restructuring for readability</li>
+          </ul>
+        </div>
+        <div>
+          <p class="card-section-label">Example asks</p>
+          <div class="chips-scroll">
+            <span class="example-chip">"Make a PDF of notion.so/xyz"</span>
+            <span class="example-chip">"Export this SOP to PDF"</span>
+            <span class="example-chip">"Turn this Notion page into a document"</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="mcp-tags">
+          <span class="mcp-tag">Notion</span>
+        </div>
+        <a href="https://github.com/huebnermarketing/WLIQ-Skills/raw/main/skills/notion-to-pdf/notion-to-pdf.skill" class="btn-download" download aria-label="Download notion-to-pdf skill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
+        </a>
+      </div>
+    </article>
+
+    <!-- ── 6. wiki-pdf-export ── -->
+    <article class="skill-card" data-c="notion">
+      <div class="card-accent-bar gradient-notion"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-meta">
+            <span class="cat-dot dot-notion" aria-hidden="true"></span>
+            <span class="skill-name">wiki-pdf-export</span>
+          </div>
+          <div class="card-badges">
+            <span class="badge badge-cat">Notion &amp; Docs</span>
+          </div>
+        </div>
+        <div class="card-trigger">export wiki to PDF</div>
+        <p class="card-desc">Intercepts WLIQ wiki responses and proactively offers to export structured content as branded PDFs. Ideal for handbooks and process docs.</p>
+        <div>
+          <p class="card-section-label">What you get</p>
+          <ul class="card-bullets">
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Auto-detects exportable wiki content (300+ words or tables)</li>
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Client-ready branded output</li>
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Handbooks, pricing, policies</li>
+          </ul>
+        </div>
+        <div>
+          <p class="card-section-label">Example asks</p>
+          <div class="chips-scroll">
+            <span class="example-chip">"Export this wiki page"</span>
+            <span class="example-chip">"Save this as a PDF"</span>
+            <span class="example-chip">"Make a document from this wiki content"</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="mcp-tags">
+          <span class="mcp-tag">Notion</span>
+        </div>
+        <a href="https://github.com/huebnermarketing/WLIQ-Skills/raw/main/skills/wiki-pdf-export/wiki-pdf-export.skill" class="btn-download" download aria-label="Download wiki-pdf-export skill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
+        </a>
+      </div>
+    </article>
+
+    <!-- ── 7. n8n-workflow-builder ── -->
+    <article class="skill-card" data-c="n8n">
+      <div class="card-accent-bar gradient-n8n"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-meta">
+            <span class="cat-dot dot-n8n" aria-hidden="true"></span>
+            <span class="skill-name">n8n-workflow-builder</span>
+          </div>
+          <div class="card-badges">
+            <span class="badge badge-cat">n8n</span>
+          </div>
+        </div>
+        <div class="card-trigger">build a workflow that does [X]</div>
+        <p class="card-desc">Build complete importable n8n workflow JSON from plain English. Asks clarifying questions, produces visual flow summary, then delivers copy-paste JSON.</p>
+        <div>
+          <p class="card-section-label">What you get</p>
+          <ul class="card-bullets">
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Complete importable workflow JSON</li>
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Visual ASCII flow diagram</li>
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Node-by-node explanation + credential setup notes</li>
+          </ul>
+        </div>
+        <div>
+          <p class="card-section-label">Example asks</p>
+          <div class="chips-scroll">
+            <span class="example-chip">"Build a workflow that sends Slack alerts when an Orbit task goes overdue"</span>
+            <span class="example-chip">"Create an n8n flow for weekly report emails"</span>
+            <span class="example-chip">"Automate invoice generation when a project closes"</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="mcp-tags">
+          <span class="mcp-none">No MCPs required</span>
+        </div>
+        <a href="https://github.com/huebnermarketing/WLIQ-Skills/raw/main/skills/n8n-workflow-builder/n8n-workflow-builder.skill" class="btn-download" download aria-label="Download n8n-workflow-builder skill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
+        </a>
+      </div>
+    </article>
+
+    <!-- ── 8. n8n-workflow-patterns ── -->
+    <article class="skill-card" data-c="n8n">
+      <div class="card-accent-bar gradient-n8n"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-meta">
+            <span class="cat-dot dot-n8n" aria-hidden="true"></span>
+            <span class="skill-name">n8n-workflow-patterns</span>
+          </div>
+          <div class="card-badges">
+            <span class="badge badge-cat">n8n</span>
+          </div>
+        </div>
+        <div class="card-trigger">what pattern for [workflow type]</div>
+        <p class="card-desc">Proven architectural patterns from real production n8n setups. Choose the right pattern before you build.</p>
+        <div>
+          <p class="card-section-label">What you get</p>
+          <ul class="card-bullets">
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>5 battle-tested workflow architectures</li>
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Pattern selection guide</li>
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Production-ready node configurations</li>
+          </ul>
+        </div>
+        <div>
+          <p class="card-section-label">Example asks</p>
+          <div class="chips-scroll">
+            <span class="example-chip">"What pattern for webhook processing?"</span>
+            <span class="example-chip">"How should I structure an AI agent workflow?"</span>
+            <span class="example-chip">"Best pattern for scheduled database sync?"</span>
+          </div>
+        </div>
+        <div>
+          <button class="subskills-toggle" aria-expanded="false" aria-controls="sub-n8n-patterns">
+            <span>5 patterns included</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="subskills-content" id="sub-n8n-patterns" aria-hidden="true">
+            <div class="subskills-inner">
+              <span class="subskill-tag">Webhook Processing</span>
+              <span class="subskill-tag">HTTP API Integration</span>
+              <span class="subskill-tag">Database Operations</span>
+              <span class="subskill-tag">AI Agent Workflow</span>
+              <span class="subskill-tag">Scheduled Tasks</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="mcp-tags">
+          <span class="mcp-none">No MCPs required</span>
+        </div>
+        <a href="https://github.com/huebnermarketing/WLIQ-Skills/raw/main/skills/n8n-workflow-patterns/n8n-workflow-patterns.skill" class="btn-download" download aria-label="Download n8n-workflow-patterns skill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
+        </a>
+      </div>
+    </article>
+
+    <!-- ── 9. laravel ── -->
+    <article class="skill-card" data-c="dev">
+      <div class="card-accent-bar gradient-dev"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-meta">
+            <span class="cat-dot dot-dev" aria-hidden="true"></span>
+            <span class="skill-name">laravel</span>
+          </div>
+          <div class="card-badges">
+            <span class="badge badge-cat">Dev</span>
+          </div>
+        </div>
+        <div class="card-trigger">help me build [feature] in Laravel</div>
+        <p class="card-desc">Deep Laravel 12.x expertise based on 130 pages of official docs. Built for WLIQ's SaaS Matrix development stack.</p>
+        <div>
+          <p class="card-section-label">What you get</p>
+          <ul class="card-bullets">
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Laravel 12.x routing, Eloquent ORM, Artisan</li>
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Queues, events, broadcasting, notifications</li>
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Vite asset compilation (replaces legacy Mix)</li>
+          </ul>
+        </div>
+        <div>
+          <p class="card-section-label">Example asks</p>
+          <div class="chips-scroll">
+            <span class="example-chip">"Help me build a multi-tenant feature in Laravel"</span>
+            <span class="example-chip">"How do I set up Laravel queues with Redis?"</span>
+            <span class="example-chip">"Write an Eloquent relationship for this schema"</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="mcp-tags">
+          <span class="mcp-none">No MCPs required</span>
+        </div>
+        <a href="https://github.com/huebnermarketing/WLIQ-Skills/raw/main/skills/laravel/laravel.skill" class="btn-download" download aria-label="Download laravel skill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
+        </a>
+      </div>
+    </article>
+
+    <!-- ── 10. wliq-brand ── -->
+    <article class="skill-card" data-c="brand">
+      <div class="card-accent-bar gradient-brand"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-meta">
+            <span class="cat-dot dot-brand" aria-hidden="true"></span>
+            <span class="skill-name">wliq-brand</span>
+          </div>
+          <div class="card-badges">
+            <span class="badge badge-cat">Brand</span>
+          </div>
+        </div>
+        <div class="card-trigger">apply WLIQ branding</div>
+        <p class="card-desc">Official WLIQ brand guidelines. Primary identity is black and white — orange is a rare accent only. Activates only on explicit instruction.</p>
+        <div>
+          <p class="card-section-label">What you get</p>
+          <ul class="card-bullets">
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Full color palette (HEX, RGB, CMYK)</li>
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Avenir typography system</li>
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Logo rules, web, social, print, illustration guidelines</li>
+          </ul>
+        </div>
+        <div>
+          <button class="subskills-toggle" aria-expanded="false" aria-controls="sub-brand">
+            <span>7 reference sub-skills</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="subskills-content" id="sub-brand" aria-hidden="true">
+            <div class="subskills-inner">
+              <span class="subskill-tag">colors</span>
+              <span class="subskill-tag">typography</span>
+              <span class="subskill-tag">logo</span>
+              <span class="subskill-tag">web</span>
+              <span class="subskill-tag">social</span>
+              <span class="subskill-tag">print</span>
+              <span class="subskill-tag">illustration</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="mcp-tags">
+          <span class="mcp-none">No MCPs required</span>
+        </div>
+        <a href="https://github.com/huebnermarketing/WLIQ-Skills/raw/main/skills/wliq-brand/wliq-brand.skill" class="btn-download" download aria-label="Download wliq-brand skill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
+        </a>
+      </div>
+    </article>
+
+    <!-- ── 11. collage-labs-color ── -->
+    <article class="skill-card" data-c="brand">
+      <div class="card-accent-bar gradient-brand"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-meta">
+            <span class="cat-dot dot-brand" aria-hidden="true"></span>
+            <span class="skill-name">collage-labs-color</span>
+          </div>
+          <div class="card-badges">
+            <span class="badge badge-cat">Brand</span>
+          </div>
+        </div>
+        <div class="card-trigger">apply Collage branding</div>
+        <p class="card-desc">Verified Collage Labs (collage.inc) color system and official logo SVGs, extracted from the live site March 2026.</p>
+        <div>
+          <p class="card-section-label">What you get</p>
+          <ul class="card-bullets">
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Primary brand: #6473FF indigo</li>
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Full tonal scales at 50&ndash;900 stops</li>
+            <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Official SVG logos (light + dark variants)</li>
+          </ul>
+        </div>
+        <div>
+          <button class="subskills-toggle" aria-expanded="false" aria-controls="sub-collage">
+            <span>3 reference sub-skills</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="subskills-content" id="sub-collage" aria-hidden="true">
+            <div class="subskills-inner">
+              <span class="subskill-tag">palette</span>
+              <span class="subskill-tag">tonal-scales</span>
+              <span class="subskill-tag">logo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="mcp-tags">
+          <span class="mcp-none">No MCPs required</span>
+        </div>
+        <a href="https://github.com/huebnermarketing/WLIQ-Skills/raw/main/skills/collage-labs-color/collage-labs-color.skill" class="btn-download" download aria-label="Download collage-labs-color skill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
+        </a>
+      </div>
+    </article>
+
+  </div><!-- /skill-grid -->
+</section>
+
+<!-- ============================================================
+     INSTALLATION
+     ============================================================ -->
+<div class="install-section" id="install">
+  <div class="install-inner">
+    <div class="section-header">
+      <span class="section-label">Installation</span>
+      <h2 class="section-title">Drop in a .skill file and it just works.</h2>
+      <p class="section-sub">Choose your Claude interface for step-by-step instructions.</p>
+    </div>
+
+    <div class="install-tabs-nav" role="tablist" aria-label="Installation method">
+      <button class="install-tab-btn active" role="tab" data-tab="desktop" aria-selected="true">Claude Desktop</button>
+      <button class="install-tab-btn" role="tab" data-tab="web" aria-selected="false">Claude.ai</button>
+      <button class="install-tab-btn" role="tab" data-tab="cli" aria-selected="false">Claude Code / CLI</button>
+      <button class="install-tab-btn" role="tab" data-tab="manual" aria-selected="false">Manual</button>
+    </div>
+
+    <!-- ── Desktop tab ── -->
+    <div class="install-tab-content active" id="tab-desktop" role="tabpanel" aria-labelledby="btn-desktop">
+      <div class="install-steps">
+        <div class="install-step">
+          <div class="step-num" aria-hidden="true">1</div>
+          <div class="step-body">
+            <p class="step-title">Download the .skill file</p>
+            <p class="step-desc">Click the Download button on any skill card above to get the .skill file.</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num" aria-hidden="true">2</div>
+          <div class="step-body">
+            <p class="step-title">Open Cowork mode in Claude Desktop</p>
+            <p class="step-desc">Launch Claude Desktop and activate Cowork / Projects mode from the sidebar.</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num" aria-hidden="true">3</div>
+          <div class="step-body">
+            <p class="step-title">Place the skill file</p>
+            <p class="step-desc">Move the downloaded file to your skills directory and rename it:</p>
+            <div class="step-code">.skills/skills/&lt;skill-name&gt;/SKILL.md</div>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num" aria-hidden="true">4</div>
+          <div class="step-body">
+            <p class="step-title">Connect required MCPs</p>
+            <p class="step-desc">Each skill card lists its MCP requirements. Connect those integrations in Claude Desktop settings before starting the session.</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num" aria-hidden="true">5</div>
+          <div class="step-body">
+            <p class="step-title">Restart Cowork — Claude auto-detects</p>
+            <p class="step-desc">Restart the Cowork session. Claude will automatically detect and load the new skill file.</p>
+          </div>
+        </div>
+      </div>
+      <div class="terminal" aria-label="Terminal commands for Claude Desktop setup">
+        <div class="terminal-bar" aria-hidden="true">
+          <span class="term-dot red"></span>
+          <span class="term-dot yellow"></span>
+          <span class="term-dot green"></span>
+        </div>
+        <div class="terminal-body">
+          <div><span class="t-comment"># Create the skills directory</span></div>
+          <div><span class="t-prompt">~</span> <span class="t-cmd">mkdir -p .skills/skills/wliq-master</span></div>
+          <div>&nbsp;</div>
+          <div><span class="t-comment"># Move downloaded skill file</span></div>
+          <div><span class="t-prompt">~</span> <span class="t-cmd">mv ~/Downloads/wliq-master.skill \</span></div>
+          <div>&nbsp;&nbsp;&nbsp;<span class="t-path">.skills/skills/wliq-master/SKILL.md</span></div>
+          <div>&nbsp;</div>
+          <div><span class="t-comment"># Verify placement</span></div>
+          <div><span class="t-prompt">~</span> <span class="t-cmd">ls .skills/skills/wliq-master/</span></div>
+          <div><span class="t-success">SKILL.md</span></div>
+          <div>&nbsp;</div>
+          <div><span class="t-comment"># Restart Claude Desktop Cowork session</span></div>
+          <div><span class="t-accent">&rarr; Claude auto-detects skill on next session start</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Web tab ── -->
+    <div class="install-tab-content" id="tab-web" role="tabpanel" aria-labelledby="btn-web">
+      <div class="install-steps">
+        <div class="install-note">Skills work via the Projects feature on Claude.ai — available on Pro and Team plans.</div>
+        <div class="install-step">
+          <div class="step-num" aria-hidden="true">1</div>
+          <div class="step-body">
+            <p class="step-title">Download the .skill file</p>
+            <p class="step-desc">Click the Download button on any skill card above.</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num" aria-hidden="true">2</div>
+          <div class="step-body">
+            <p class="step-title">Open Claude.ai and go to Projects</p>
+            <p class="step-desc">Navigate to claude.ai and open the Projects section from the sidebar.</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num" aria-hidden="true">3</div>
+          <div class="step-body">
+            <p class="step-title">Create or open a Project</p>
+            <p class="step-desc">Create a new project or open an existing one where you want the skill active.</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num" aria-hidden="true">4</div>
+          <div class="step-body">
+            <p class="step-title">Add skill content to Project Knowledge</p>
+            <p class="step-desc">Open Project Settings &rarr; Knowledge &rarr; upload the .skill file or paste its contents.</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num" aria-hidden="true">5</div>
+          <div class="step-body">
+            <p class="step-title">Skills activate automatically in project context</p>
+            <p class="step-desc">Claude will detect and apply the skill in every conversation within that project.</p>
+          </div>
+        </div>
+      </div>
+      <div class="terminal" aria-label="Claude.ai setup guide">
+        <div class="terminal-bar" aria-hidden="true">
+          <span class="term-dot red"></span>
+          <span class="term-dot yellow"></span>
+          <span class="term-dot green"></span>
+        </div>
+        <div class="terminal-body">
+          <div><span class="t-comment"># Claude.ai Projects setup</span></div>
+          <div>&nbsp;</div>
+          <div><span class="t-prompt">1</span> <span class="t-cmd">claude.ai &rarr; Projects &rarr; New Project</span></div>
+          <div><span class="t-prompt">2</span> <span class="t-cmd">Project Settings &rarr; Knowledge</span></div>
+          <div><span class="t-prompt">3</span> <span class="t-cmd">Add content &rarr; Upload .skill file</span></div>
+          <div>&nbsp;</div>
+          <div><span class="t-comment"># Or paste contents directly</span></div>
+          <div><span class="t-prompt">4</span> <span class="t-cmd">Copy contents of .skill file</span></div>
+          <div><span class="t-prompt">5</span> <span class="t-cmd">Paste into Project Knowledge text field</span></div>
+          <div>&nbsp;</div>
+          <div><span class="t-success">&rarr; Skill active in all project conversations</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CLI tab ── -->
+    <div class="install-tab-content" id="tab-cli" role="tabpanel" aria-labelledby="btn-cli">
+      <div class="install-steps">
+        <div class="install-step">
+          <div class="step-num" aria-hidden="true">1</div>
+          <div class="step-body">
+            <p class="step-title">Download the .skill file</p>
+            <p class="step-desc">Click the Download button on any skill card above.</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num" aria-hidden="true">2</div>
+          <div class="step-body">
+            <p class="step-title">Rename to SKILL.md</p>
+            <p class="step-desc">Rename the downloaded file from <code style="font-family:monospace;color:var(--accent)">*.skill</code> to <code style="font-family:monospace;color:var(--accent)">SKILL.md</code>.</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num" aria-hidden="true">3</div>
+          <div class="step-body">
+            <p class="step-title">Place in your project directory</p>
+            <p class="step-desc">Create the skills directory structure in your project root:</p>
+            <div class="step-code">.claude/skills/&lt;skill-name&gt;/SKILL.md</div>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num" aria-hidden="true">4</div>
+          <div class="step-body">
+            <p class="step-title">Claude Code picks it up automatically</p>
+            <p class="step-desc">When running Claude Code in that directory, it will detect the skill file automatically at session start.</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num" aria-hidden="true">5</div>
+          <div class="step-body">
+            <p class="step-title">Reference in CLAUDE.md for explicit loading</p>
+            <p class="step-desc">Add to your project's CLAUDE.md to guarantee the skill loads:</p>
+            <div class="step-code">Read .claude/skills/&lt;skill-name&gt;/SKILL.md</div>
+          </div>
+        </div>
+      </div>
+      <div class="terminal" aria-label="Claude Code setup commands">
+        <div class="terminal-bar" aria-hidden="true">
+          <span class="term-dot red"></span>
+          <span class="term-dot yellow"></span>
+          <span class="term-dot green"></span>
+        </div>
+        <div class="terminal-body">
+          <div><span class="t-comment"># In your project root</span></div>
+          <div><span class="t-prompt">~/project</span> <span class="t-cmd">mkdir -p .claude/skills/wliq-master</span></div>
+          <div>&nbsp;</div>
+          <div><span class="t-prompt">~/project</span> <span class="t-cmd">mv wliq-master.skill \</span></div>
+          <div>&nbsp;&nbsp;&nbsp;<span class="t-path">.claude/skills/wliq-master/SKILL.md</span></div>
+          <div>&nbsp;</div>
+          <div><span class="t-comment"># Add to CLAUDE.md</span></div>
+          <div><span class="t-prompt">~/project</span> <span class="t-cmd">echo "Read .claude/skills/wliq-master/SKILL.md" \</span></div>
+          <div>&nbsp;&nbsp;&nbsp;<span class="t-cmd">&gt;&gt; CLAUDE.md</span></div>
+          <div>&nbsp;</div>
+          <div><span class="t-comment"># Start Claude Code</span></div>
+          <div><span class="t-prompt">~/project</span> <span class="t-cmd">claude</span></div>
+          <div><span class="t-success">&rarr; Skill detected and loaded automatically</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Manual tab ── -->
+    <div class="install-tab-content" id="tab-manual" role="tabpanel" aria-labelledby="btn-manual">
+      <div class="install-steps">
+        <div class="install-note">Compatible with any Claude interface that supports system prompts or project instructions — including the Claude API.</div>
+        <div class="install-step">
+          <div class="step-num" aria-hidden="true">1</div>
+          <div class="step-body">
+            <p class="step-title">Download and open the .skill file</p>
+            <p class="step-desc">Download the skill file and open it in any text editor.</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num" aria-hidden="true">2</div>
+          <div class="step-body">
+            <p class="step-title">Copy the full contents</p>
+            <p class="step-desc">Select all and copy the entire file contents (Cmd+A, Cmd+C).</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num" aria-hidden="true">3</div>
+          <div class="step-body">
+            <p class="step-title">Paste into system prompt or project instructions</p>
+            <p class="step-desc">Paste into your Claude interface's system prompt field, custom instructions, or project knowledge base.</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num" aria-hidden="true">4</div>
+          <div class="step-body">
+            <p class="step-title">Works with any Claude interface</p>
+            <p class="step-desc">Compatible with Claude API, third-party Claude clients, custom deployments, and any tool that accepts a system prompt.</p>
+          </div>
+        </div>
+      </div>
+      <div class="terminal" aria-label="Manual installation guide">
+        <div class="terminal-bar" aria-hidden="true">
+          <span class="term-dot red"></span>
+          <span class="term-dot yellow"></span>
+          <span class="term-dot green"></span>
+        </div>
+        <div class="terminal-body">
+          <div><span class="t-comment"># Manual — any Claude interface</span></div>
+          <div>&nbsp;</div>
+          <div><span class="t-prompt">1</span> <span class="t-cmd">Open .skill file in text editor</span></div>
+          <div><span class="t-prompt">2</span> <span class="t-cmd">Select All &rarr; Copy (Cmd+A, Cmd+C)</span></div>
+          <div><span class="t-prompt">3</span> <span class="t-cmd">Claude interface &rarr; System Prompt</span></div>
+          <div><span class="t-prompt">4</span> <span class="t-cmd">Paste skill content &rarr; Save</span></div>
+          <div>&nbsp;</div>
+          <div><span class="t-comment"># Compatible with:</span></div>
+          <div><span class="t-accent">Claude API (system message)</span></div>
+          <div><span class="t-accent">Third-party Claude clients</span></div>
+          <div><span class="t-accent">Custom Claude deployments</span></div>
+          <div>&nbsp;</div>
+          <div><span class="t-success">&rarr; Skill active immediately in that context</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /install-section -->
+
+<!-- ============================================================
+     USE CASES
+     ============================================================ -->
+<section class="section" id="use-cases">
+  <div class="section-header">
+    <span class="section-label">Use Cases</span>
+    <h2 class="section-title">Real work, done faster.</h2>
+    <p class="section-sub">See what you can accomplish once skills are loaded.</p>
+  </div>
+
+  <div class="bento-grid">
+
+    <div class="bento-card">
+      <p class="bento-label">Morning Ritual</p>
+      <h3 class="bento-title">Start your day in 30 seconds.</h3>
+      <p class="bento-desc">One prompt pulls your Orbit tasks, unread emails that need replies, and today's meetings — prioritised and formatted, ready to act on. No context-switching required.</p>
+      <div class="bento-prompt"><strong>Try:</strong> "Morning briefing" &mdash; wliq-daily-briefing handles the rest</div>
+    </div>
+
+    <div class="bento-card">
+      <p class="bento-label">Client Prep</p>
+      <h3 class="bento-title">Pre-call in seconds.</h3>
+      <p class="bento-desc">Full client 360&deg;: open tasks, project health, billing status, last touchpoints — delivered as a clean brief before you pick up the phone.</p>
+      <div class="bento-prompt"><strong>Try:</strong> "Catch me up on Collage"</div>
+    </div>
+
+    <div class="bento-card">
+      <p class="bento-label">Weekly Reporting</p>
+      <h3 class="bento-title">Friday reports, automated.</h3>
+      <p class="bento-desc">Pull Orbit data, format it into your standard weekly report, push to Notion — all from a single prompt every Friday.</p>
+      <div class="bento-prompt"><strong>Try:</strong> "Weekly report for AI Matrix"</div>
+    </div>
+
+    <div class="bento-card">
+      <p class="bento-label">Automation</p>
+      <h3 class="bento-title">Describe it, get JSON.</h3>
+      <p class="bento-desc">Plain English to importable n8n workflow. Clarifying questions, ASCII flow diagram, then copy-paste JSON — ready to import.</p>
+      <div class="bento-prompt"><strong>Try:</strong> "Build a workflow that does..."</div>
+    </div>
+
+    <div class="bento-card">
+      <p class="bento-label">Documentation</p>
+      <h3 class="bento-title">Notion URL &rarr; branded PDF.</h3>
+      <p class="bento-desc">Paste any Notion URL. Get back a WLIQ-branded PDF. SOPs, proposals, handbooks — polished and client-ready in seconds.</p>
+      <div class="bento-prompt"><strong>Try:</strong> "Make a PDF of notion.so/..."</div>
+    </div>
+
+    <div class="bento-card">
+      <div>
+        <p class="bento-label">Capacity Planning</p>
+        <h3 class="bento-title" style="font-size:26px;">Know who has bandwidth before you commit.</h3>
+        <p class="bento-desc" style="margin-top:10px;">Team workload skill queries Orbit in real time. See utilisation rates, scheduled hours, and available capacity across the team before you add more to anyone's plate.</p>
+      </div>
+      <div>
+        <p class="bento-label">How to use</p>
+        <p class="bento-desc" style="margin-bottom:12px;">Works with the orbit-skills team-workload sub-skill. Ask naturally in any format.</p>
+        <div class="bento-prompt"><strong>Try:</strong> "Check team capacity for next week"</div>
+      </div>
+      <div>
+        <p class="bento-label">Output includes</p>
+        <ul class="card-bullets" style="margin-top:8px;">
+          <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Per-person utilisation %</li>
+          <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Scheduled vs available hours</li>
+          <li class="card-bullet"><span class="card-bullet-dot" aria-hidden="true"></span>Recommended allocation</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<div class="divider"></div>
+<footer>
+  <div class="footer-logo">
+    <svg viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg" aria-label="WLIQ">
+      <g>
+        <path class="lp" d="M92.64,118.06h14.92l9.85,39.68h.28l12.95-39.68h12.66l12.95,40.81h.28l10.41-40.81h13.79l-18.01,61.91h-12.1l-13.51-42.78h-.28l-13.51,43.06h-12.38l-18.29-62.2Z"/>
+        <path class="lp" d="M188.32,118.06h13.51v23.08h26.45v-23.08h13.51v61.91h-13.51v-26.74h-26.45v26.74h-13.51v-61.91Z"/>
+        <path class="lp" d="M256.43,118.06h13.51v61.91h-13.51v-61.91Z"/>
+        <path class="lp" d="M296.39,130.16h-17.73v-12.1h48.97v12.1h-17.73v49.81h-13.51c0,.28,0-49.81,0-49.81Z"/>
+        <path class="lp" d="M336.91,118.06h42.21v12.66h-28.71v11.54h27.02v12.66h-27.02v12.66h30.11v12.66h-43.62v-62.2h0Z"/>
+        <path class="lp" d="M421.34,118.06h13.79v49.25h25.33v12.66h-38.84l-.28-61.91h0Z"/>
+        <path class="lp" d="M490.01,118.06h11.26l27.02,61.91h-15.48l-5.35-13.23h-24.2l-5.07,13.23h-15.2l27.02-61.91ZM495.36,136.07l-7.6,19.14h15.2l-7.6-19.14Z"/>
+        <path class="lp" d="M536.44,118.06h23.08c10.98,0,22.8,2.25,22.8,15.76,0,7.04-4.22,11.54-10.69,13.51v.28c8.16,1.13,13.51,7.04,13.51,15.2,0,12.95-12.38,17.17-23.36,17.17h-25.33v-61.91h0ZM549.95,142.82h9.85c4.22,0,8.72-1.69,8.72-6.75s-4.78-6.47-9.29-6.47h-9.29v13.23ZM549.95,168.71h12.38c4.22,0,9.01-1.97,9.01-7.32,0-5.91-6.47-6.75-10.98-6.75h-10.41v14.07h0Z"/>
+        <path class="lp" d="M595.26,118.06h42.21v12.66h-28.42v11.54h27.02v12.66h-27.02v12.66h30.11v12.66h-43.62l-.28-62.2h0Z"/>
+        <path class="lp" d="M652.39,118.06h13.79v49.25h25.33v12.66h-38.84l-.28-61.91h0Z"/>
+      </g>
+      <path class="lp" d="M725.84,75v150h110.04v-37.71h36.3v-112.29h-146.34ZM773.69,170.97h-10.41v-49.81h10.41v49.81ZM836.16,170.97h-28.71c-14.63,0-25.61-9.57-25.61-25.61,0-15.2,11.26-25.61,25.33-25.61s25.33,10.69,25.33,25.61c0,7.04-2.81,14.07-9.29,16.89h13.23l-.28,8.72h0ZM807.18,130.16c-7.88,0-14.35,6.75-14.35,15.48s6.47,15.48,14.35,15.48,14.35-6.75,14.35-15.48-6.47-15.48-14.35-15.48Z"/>
+      <g>
+        <path class="lp" d="M883.44,77.53h-3.94v-2.53h10.69v2.53h-3.94v10.69h-2.81v-10.69h0Z"/>
+        <path class="lp" d="M892.17,75h4.5l3.1,8.72h0l3.1-8.72h4.5v13.51h-2.81v-10.41h0l-3.66,10.13h-2.25l-3.1-10.13h0v10.13h-2.81v-13.23h-.56Z"/>
+      </g>
+      <polygon class="lp" points="841.23 221.62 869.93 192.92 841.23 192.92 841.23 221.62"/>
+    </svg>
+  </div>
+  <p class="footer-credit">Built by <strong>Tarang Chokshi</strong> &amp; the AI Matrix team</p>
+  <div class="footer-links">
+    <a href="https://github.com/huebnermarketing/WLIQ-Skills" class="footer-link" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://github.com/huebnermarketing/WLIQ-Skills/blob/main/CONTRIBUTING.md" class="footer-link" target="_blank" rel="noopener">Contribute</a>
+    <a href="mailto:hello@wliq.com" class="footer-link">Contact</a>
+  </div>
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+(function() {
+  'use strict';
+
+  // ── Theme toggle ──
+  var toggle = document.getElementById('themeToggle');
+  toggle.addEventListener('click', function() {
+    var current = document.documentElement.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('wliq-theme', next); } catch(e) {}
+  });
+
+  // ── Category filter ──
+  var filterTabs = document.querySelectorAll('.filter-tab');
+  var skillCards = document.querySelectorAll('.skill-card');
+
+  filterTabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var filter = this.getAttribute('data-filter');
+
+      filterTabs.forEach(function(t) {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      this.classList.add('active');
+      this.setAttribute('aria-selected', 'true');
+
+      skillCards.forEach(function(card) {
+        var show = filter === 'all' || card.getAttribute('data-c') === filter;
+        card.style.display = show ? '' : 'none';
+      });
+    });
+  });
+
+  // ── Sub-skills accordion ──
+  var subToggles = document.querySelectorAll('.subskills-toggle');
+  subToggles.forEach(function(toggle) {
+    toggle.addEventListener('click', function() {
+      var isOpen = this.classList.contains('open');
+      var contentId = this.getAttribute('aria-controls');
+      var content = document.getElementById(contentId);
+      if (!content) return;
+
+      this.classList.toggle('open', !isOpen);
+      this.setAttribute('aria-expanded', String(!isOpen));
+      content.classList.toggle('open', !isOpen);
+      content.setAttribute('aria-hidden', String(isOpen));
+    });
+  });
+
+  // ── Install tabs ──
+  var installBtns = document.querySelectorAll('.install-tab-btn');
+  var installPanels = document.querySelectorAll('.install-tab-content');
+
+  installBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var tabId = 'tab-' + this.getAttribute('data-tab');
+
+      installBtns.forEach(function(b) {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      installPanels.forEach(function(p) {
+        p.classList.remove('active');
+      });
+
+      this.classList.add('active');
+      this.setAttribute('aria-selected', 'true');
+      var panel = document.getElementById(tabId);
+      if (panel) panel.classList.add('active');
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
