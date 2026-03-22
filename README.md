@@ -9,6 +9,7 @@
 
 <br/>
 
+[![Visitors](https://visitor-badge.laobi.icu/badge?page_id=huebnermarketing.WLIQ-Skills)](https://github.com/huebnermarketing/WLIQ-Skills)
 [![Skills](https://img.shields.io/badge/skills-11-F37022?style=flat-square&labelColor=0e0e1a)](https://github.com/huebnermarketing/WLIQ-Skills/tree/main/skills)
 [![Categories](https://img.shields.io/badge/categories-5-F37022?style=flat-square&labelColor=0e0e1a)](https://github.com/huebnermarketing/WLIQ-Skills/tree/main/skills)
 [![MCP Integrations](https://img.shields.io/badge/MCP_integrations-6-F37022?style=flat-square&labelColor=0e0e1a)](https://github.com/huebnermarketing/WLIQ-Skills#mcp-requirements)
