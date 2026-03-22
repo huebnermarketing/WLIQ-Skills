@@ -1,200 +1,261 @@
-# WLIQ Claude Skills
+<div align="center">
 
-[![Visitors](https://visitor-badge.laobi.icu/badge?page_id=huebnermarketing.WLIQ-Skills)](https://github.com/huebnermarketing/WLIQ-Skills)
+<br/>
 
-A shared library of Claude AI skills built by the White Label IQ team. These skills extend Claude's capabilities inside **Claude Desktop (Cowork mode)** with WLIQ-specific workflows — Orbit project management, Notion integrations, n8n automation, and brand-aware document generation.
+<!-- WLIQ wordmark as text since GitHub doesn't render custom SVG inline -->
+# WLIQ Skills
+
+**Claude AI Skill Library · White Label IQ**
+
+<br/>
+
+[![Skills](https://img.shields.io/badge/skills-11-F37022?style=flat-square&labelColor=0e0e1a)](https://github.com/huebnermarketing/WLIQ-Skills/tree/main/skills)
+[![Categories](https://img.shields.io/badge/categories-5-F37022?style=flat-square&labelColor=0e0e1a)](https://github.com/huebnermarketing/WLIQ-Skills/tree/main/skills)
+[![MCP Integrations](https://img.shields.io/badge/MCP_integrations-6-F37022?style=flat-square&labelColor=0e0e1a)](https://github.com/huebnermarketing/WLIQ-Skills#mcp-requirements)
+[![License](https://img.shields.io/badge/license-private-555?style=flat-square&labelColor=0e0e1a)](https://github.com/huebnermarketing/WLIQ-Skills)
+
+<br/>
+
+A growing library of specialised Claude skills for the White Label IQ team.
+Connect Orbit, Notion, Gmail, Calendar, Fathom, and Pipedrive — drop in a `.skill` file and it just works.
+
+<br/>
+
+[**Browse Skills →**](https://github.com/huebnermarketing/WLIQ-Skills/tree/main/skills) &nbsp;·&nbsp; [**Installation Guide**](#installation) &nbsp;·&nbsp; [**Web Portal**](https://wliq-skills.tarangchokshi.workers.dev/)
+
+<br/>
+
+</div>
 
 ---
 
-## Skills Index
+## Skill Library
 
-### Orbit (Project Management)
-| Skill | What it does |
-|-------|-------------|
-| `orbit-client-360` | Full 360° client overview across all active projects — health, tasks, team, flags |
-| `orbit-project-pulse` | Rich project health card for any named Orbit project or client |
-| `orbit-team-workload` | Live workload + capacity view for any WLIQ matrix team |
-| `orbit-weekly-report` | Comprehensive weekly report for any matrix team with per-member breakdown |
+### 🔑 Start Here — Master Skills
 
-### WLIQ Core
-| Skill | What it does |
-|-------|-------------|
-| `wliq-context` | Master context loader — team directory, Orbit IDs, client domains, tool routing |
-| `wliq-daily-briefing` | Personalised daily briefing pulling Orbit tasks, Gmail, and Google Calendar |
-| `wliq-brand` | Apply WLIQ brand guidelines to any document or artifact |
+These two skills are the foundation. Install `wliq-master` first in every session.
 
-### Notion & Documents
-| Skill | What it does |
-|-------|-------------|
-| `notion-to-pdf` | Convert any Notion page into a polished WLIQ-branded PDF |
-| `wiki-pdf-export` | Export WLIQ Notion wiki content as a branded PDF |
+| Skill | Trigger | What it does | MCPs |
+|-------|---------|-------------|------|
+| [`wliq-master`](skills/wliq-master.skill) | *any WLIQ query* | Identity resolution + routes every query to the right sub-skill (Orbit, Gmail, Calendar, Notion, Fathom, Pipedrive) | Orbit · Gmail · Calendar · Notion · Fathom · Pipedrive |
+| [`orbit-skills`](skills/orbit-skills.skill) | *pulse on [project] / catch me up on [client]* | All Orbit workflows: client 360°, project health, team workload, weekly reports, billing analysis | Orbit · Notion |
 
-### n8n Automation
-| Skill | What it does |
-|-------|-------------|
-| `n8n-workflow-builder` | Build complete, importable n8n workflow JSON from plain-language descriptions |
-| `n8n-workflow-patterns` | Proven architectural patterns for n8n workflows |
+**`wliq-master` includes 6 sub-skills:**
+`wliq-orbit` · `wliq-gmail` · `wliq-calendar` · `wliq-notion` · `wliq-fathom` · `wliq-pipedrive`
+
+**`orbit-skills` includes 5 sub-skills:**
+`client-360` · `project-pulse` · `team-workload` · `weekly-report` · `adhoc-report`
+
+---
+
+### ⚡ WLIQ Core
+
+| Skill | Trigger | What it does | MCPs |
+|-------|---------|-------------|------|
+| [`wliq-daily-briefing`](skills/wliq-daily-briefing.skill) | *today's agenda / morning briefing / what's my day* | PA-grade daily briefing — Orbit tasks due today, emails needing action, today's calendar. No emoji, no fluff. | Orbit · Gmail · Calendar |
+| [`skills-discovery`](skills/skills-discovery.skill) | *find a skill for [task]* | Proactively searches claude-plugins.dev before Claude guesses. Ensures the right skill is always used. | None |
+
+---
+
+### 📄 Notion & Documents
+
+| Skill | Trigger | What it does | MCPs |
+|-------|---------|-------------|------|
+| [`notion-to-pdf`](skills/notion-to-pdf.skill) | *make a PDF of this Notion page: [url]* | Converts any Notion page to a polished WLIQ-branded PDF. Always fetches live — never uses pasted content. | Notion |
+| [`wiki-pdf-export`](skills/wiki-pdf-export.skill) | *export wiki to PDF* | Intercepts long/structured wiki responses and proactively offers to export as branded PDF. | Notion |
+
+---
+
+### 🔧 n8n Automation
+
+| Skill | Trigger | What it does | MCPs |
+|-------|---------|-------------|------|
+| [`n8n-workflow-builder`](skills/n8n-workflow-builder.skill) | *build a workflow that does [X]* | Plain English → complete importable n8n JSON. Clarifying questions → visual flow summary → copy-paste JSON → node setup notes. | None |
+| [`n8n-workflow-patterns`](skills/n8n-workflow-patterns.skill) | *what pattern for [workflow type]* | 5 battle-tested workflow architectures from real production setups: webhook, HTTP API, database, AI agent, scheduled. | None |
+
+---
+
+### 💻 Dev
+
+| Skill | Trigger | What it does | MCPs |
+|-------|---------|-------------|------|
+| [`laravel`](skills/laravel.skill) | *help me build [feature] in Laravel* | Deep Laravel 12.x expertise based on 130 pages of official docs. Routing, Eloquent, queues, Vite. Built for WLIQ's SaaS Matrix stack. | None |
+
+---
+
+### 🎨 Brand
+
+| Skill | Trigger | What it does | MCPs |
+|-------|---------|-------------|------|
+| [`wliq-brand`](skills/wliq-brand.skill) | *apply WLIQ branding* (explicit only) | Official WLIQ brand guidelines — black/white/orange palette, Avenir typography, logo rules, web, social, print, illustration. | None |
+| [`collage-labs-color`](skills/collage-labs-color.skill) | *apply Collage branding* | Verified Collage Labs (collage.inc) color system + official logo SVGs. Primary: `#6473FF` indigo. Extracted March 2026. | None |
 
 ---
 
 ## Installation
 
-### ⚡ Easiest Option — Download & Import Directly
+Choose the method that matches how you use Claude.
 
-No Git required. Visit the skills web portal and download individual skills as ZIP files, then import them directly into Claude:
+### Claude Desktop (Cowork mode) — Recommended
 
-**👉 [https://wliq-skills.tarangchokshi.workers.dev/](https://wliq-skills.tarangchokshi.workers.dev/)**
+> This is the primary method. Skills run automatically when Claude detects them in your workspace.
 
-1. Browse and download the skill(s) you want
-2. In Claude Desktop (Cowork mode), go to **Settings → Skills**
-3. Click **Import Skill** and select the downloaded ZIP
-4. Restart your Cowork session — done!
+**Step 1** — Download the `.skill` file from the table above or the [skills folder](skills/).
 
-This is the recommended option if you don't want to clone the repo or use Git.
+**Step 2** — Open Claude Desktop and start a **Cowork** session. Select or create your workspace folder (e.g. `~/Documents/wliq-workspace`).
+
+**Step 3** — Place the skill file in your workspace:
+
+```bash
+# Create the skills folder if it doesn't exist
+mkdir -p ~/Documents/wliq-workspace/.skills/skills/orbit-skills
+
+# Copy the skill file (rename to SKILL.md)
+cp ~/Downloads/orbit-skills.skill \
+   ~/Documents/wliq-workspace/.skills/skills/orbit-skills/SKILL.md
+```
+
+> Folder structure: `.skills/skills/<skill-name>/SKILL.md`
+
+**Step 4** — Connect required MCPs (see [MCP Requirements](#mcp-requirements) below).
+
+**Step 5** — Restart your Cowork session. Claude auto-detects the skill. Use any trigger phrase — no manual invocation needed.
 
 ---
 
-### Git Option — Clone this repo
+### Claude.ai (Web — Projects)
 
-```bash
-git clone https://github.com/huebnermarketing/WLIQ-Skills.git
-```
+> Skills work via the Projects feature on Claude.ai.
 
-### Step 2 — Open Cowork and select your workspace folder
+**Step 1** — Download the `.skill` file and open it in any text editor.
 
-1. Open Claude Desktop
-2. Start a Cowork session
-3. When prompted to select a folder, **select or create a folder** (e.g. `~/Documents/wliq-workspace`)
+**Step 2** — Go to [claude.ai](https://claude.ai) → **Projects** → create or open a project.
 
-This becomes your workspace root. Claude can read/write inside it.
+**Step 3** — Open **Project Settings** → **Project Knowledge** → click **Add content**.
 
-### Step 3 — Copy skills into your workspace
+**Step 4** — Paste the skill file contents as a knowledge document. Name it the skill name (e.g. `wliq-master`).
 
-Claude looks for skills in a `.skills/skills/` folder inside your workspace. Copy the skills you want from this repo into that location:
-
-```bash
-# From inside your cloned repo
-cp -r skills/orbit-client-360  ~/Documents/wliq-workspace/.skills/skills/
-cp -r skills/wliq-context       ~/Documents/wliq-workspace/.skills/skills/
-cp -r skills/wliq-daily-briefing ~/Documents/wliq-workspace/.skills/skills/
-# ... add whichever skills you need
-```
-
-Or to install ALL skills at once:
-
-```bash
-cp -r skills/* ~/Documents/wliq-workspace/.skills/skills/
-```
-
-> **Note:** If the `.skills/skills/` folder doesn't exist yet, create it first:
-> ```bash
-> mkdir -p ~/Documents/wliq-workspace/.skills/skills/
-> ```
-
-### Step 4 — Restart your Cowork session
-
-Close and reopen Claude Desktop (or start a new Cowork session). Claude will automatically detect and load the skills from your workspace.
-
-### Step 5 — Verify installation
-
-In a Cowork session, type something like:
-
-> *"catch me up on [client name]"*
-
-Claude should trigger the `orbit-client-360` skill automatically. If it does, you're good to go.
+**Step 5** — Start a conversation in that project — the skill activates automatically from project context.
 
 ---
 
-## Updating Skills
+### Claude Code / CLI
 
-When this repo gets new skills or updates:
+> Skills integrate with Claude Code via your project directory.
+
+**Step 1** — Download the `.skill` file from the [skills folder](skills/).
+
+**Step 2** — Place it in your project:
 
 ```bash
-cd wliq-skills
-git pull
-cp -r skills/* ~/Documents/wliq-workspace/.skills/skills/
+# Create the skills directory
+mkdir -p .claude/skills/orbit-skills
+
+# Copy and rename
+cp ~/Downloads/orbit-skills.skill .claude/skills/orbit-skills/SKILL.md
 ```
 
-Restart your Cowork session to pick up changes.
+**Step 3** — Reference the skill in your `CLAUDE.md`:
+
+```markdown
+## Active Skills
+
+Read the following skill files before starting work:
+- .claude/skills/orbit-skills/SKILL.md
+- .claude/skills/wliq-master/SKILL.md
+```
+
+**Step 4** — Claude Code picks up the skills automatically when working in that directory.
 
 ---
 
-## MCP Connections Required
+### Manual (Any Claude Interface)
 
-Some skills require MCP (Model Context Protocol) server connections to be set up in Claude Desktop. Without these, the skill will load but won't be able to fetch live data.
+> Works with any Claude interface — Claude.ai, API, third-party apps.
 
-| Skill Group | Required MCPs |
-|-------------|--------------|
-| `orbit-*` | Orbit MCP (internal WLIQ tool) |
-| `wliq-daily-briefing` | Orbit MCP, Gmail MCP, Google Calendar MCP |
-| `notion-to-pdf`, `wiki-pdf-export` | Notion MCP |
-| `n8n-*` | None (generates JSON output only) |
-| `wliq-brand`, `collage-brand` | None |
+**Step 1** — Download and open the `.skill` file in any text editor.
 
-Ask Tarang or the AI Matrix team for MCP setup instructions.
+**Step 2** — Copy the full file contents.
+
+**Step 3** — Paste into the **system prompt** or **custom instructions** field of your Claude interface.
+
+**Step 4** — Start your conversation — the skill is active for that session.
 
 ---
 
-## Troubleshooting
+## MCP Requirements
 
-**Skill not triggering?**
-- Make sure the skill folder is directly inside `.skills/skills/` (not nested deeper)
-- Each skill folder must contain a `SKILL.md` file
-- Restart the Cowork session after installing
+Some skills need MCP (Model Context Protocol) server connections to fetch live data. Skills will load without them but won't be able to call external tools.
 
-**Permission errors on macOS?**
-```bash
-chmod -R 755 ~/Documents/wliq-workspace/.skills/skills/
-```
+| MCP | Required by | Setup |
+|-----|-------------|-------|
+| **Orbit** | `wliq-master`, `orbit-skills`, `wliq-daily-briefing` | Internal WLIQ tool — ask AI Matrix team |
+| **Gmail** | `wliq-master`, `wliq-daily-briefing` | Google OAuth via Claude MCP settings |
+| **Google Calendar** | `wliq-master`, `wliq-daily-briefing` | Google OAuth via Claude MCP settings |
+| **Notion** | `wliq-master`, `notion-to-pdf`, `wiki-pdf-export` | Notion API token via Claude MCP settings |
+| **Fathom** | `wliq-master` | Fathom API key via Claude MCP settings |
+| **Pipedrive** | `wliq-master` | Pipedrive API token via Claude MCP settings |
 
-**Skill triggers but fails mid-run?**
-- Check that the required MCPs are connected (see table above)
-- Ensure your Orbit user ID, Notion token, etc. are correctly configured
+For MCP setup help: [tarangc@whitelabeliq.com](mailto:tarangc@whitelabeliq.com)
 
 ---
 
 ## Repo Structure
 
 ```
-wliq-skills/
-├── README.md               ← You are here
-├── CONTRIBUTING.md         ← How to add or update skills
-├── .gitignore
+WLIQ-Skills/
+├── README.md
+├── CONTRIBUTING.md
+├── index.html                        ← Web portal (skills browser)
 └── skills/
-    ├── orbit-client-360/
-    │   └── SKILL.md
-    ├── orbit-project-pulse/
-    │   └── SKILL.md
-    ├── orbit-team-workload/
-    │   └── SKILL.md
-    ├── orbit-weekly-report/
-    │   └── SKILL.md
-    ├── wliq-context/
-    │   └── SKILL.md
-    ├── wliq-daily-briefing/
-    │   └── SKILL.md
-    ├── wliq-brand/
-    │   ├── SKILL.md
-    │   └── references/     ← Brand assets (colors, typography, logo guides)
-    ├── collage-brand/
-    │   ├── SKILL.md
-    │   └── references/
-    ├── notion-to-pdf/
-    │   ├── SKILL.md
-    │   └── references/
-    ├── wiki-pdf-export/
-    │   ├── SKILL.md
-    │   └── references/
-    ├── n8n-workflow-builder/
-    │   └── SKILL.md
-    └── n8n-workflow-patterns/
-        └── SKILL.md
+    ├── wliq-master.skill             ← Install first
+    ├── orbit-skills.skill
+    ├── wliq-daily-briefing.skill
+    ├── skills-discovery.skill
+    ├── notion-to-pdf.skill
+    ├── wiki-pdf-export.skill
+    ├── n8n-workflow-builder.skill
+    ├── n8n-workflow-patterns.skill
+    ├── laravel.skill
+    ├── wliq-brand.skill
+    └── collage-labs-color.skill
+```
+
+Each `.skill` file is a ZIP archive containing a `SKILL.md` and optional `references/` folder. Rename to `.md` to inspect contents directly.
+
+---
+
+## Troubleshooting
+
+**Skill not triggering in Cowork?**
+- Confirm the file is at `.skills/skills/<skill-name>/SKILL.md` (not nested deeper)
+- Restart the Cowork session after installing
+- Try explicitly saying the trigger phrase from the skill's card
+
+**Skill triggers but fails mid-run?**
+- Check the required MCPs are connected (see table above)
+- Verify your Orbit/Notion/Gmail credentials are active
+
+**Permission error on macOS?**
+```bash
+chmod -R 755 ~/Documents/wliq-workspace/.skills/
+```
+
+**Want to inspect a skill's contents?**
+```bash
+cp skills/orbit-skills.skill /tmp/orbit-skills.zip && unzip /tmp/orbit-skills.zip -d /tmp/orbit-skills
 ```
 
 ---
 
-## Team
+## Contributing
 
-Built and maintained by **Tarang Chokshi** (Director of Product Development, WLIQ) and the AI Matrix team.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for how to add or update skills.
 
-For questions: tarangc@whitelabeliq.com
+---
+
+<div align="center">
+
+Built by **[Tarang Chokshi](mailto:tarangc@whitelabeliq.com)** and the AI Matrix team · White Label IQ
+
+</div>
